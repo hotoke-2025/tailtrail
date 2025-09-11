@@ -1,4 +1,7 @@
-function LostPetForm() {
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+
+export default function LostPetForm() {
   const [newLostPet, setNewLostPet] = useState({
     species: '',
     breed: '',
@@ -88,8 +91,11 @@ function LostPetForm() {
       <label htmlFor="microchipped">Micro-chipped:</label>
       <input
         value={newLostPet.microchipped}
-        onChange={handleChange}
-        type="text"
+        type="checkbox"
+        checked={newLostPet.microchipped === true}
+        onChange={(e) =>
+          setFormData({ ...formData, isMicrochipped: e.target.checked })
+        }
         id="microchipped"
         placeholder="Is the animal micro-chipped? (if applicable)"
       />
