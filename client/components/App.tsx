@@ -1,9 +1,7 @@
-import { useFruits } from '../hooks/useFruits.ts'
 import HomePage from './pages/Home.tsx'
+// import { usePets } from '../hooks/usePets.ts'
 
 function App() {
-  const { data } = useFruits()
-
   return (
     <>
       <div className="app">
