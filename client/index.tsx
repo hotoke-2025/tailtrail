@@ -11,15 +11,12 @@ const queryClient = new QueryClient()
 
 document.addEventListener('DOMContentLoaded', () => {
   createRoot(document.getElementById('app') as HTMLElement).render(
-    /**
-     * TODO: replace domain, clientId, and audience
-     */
     <Auth0Provider
-      domain=""
-      clientId=""
+      domain="rhaine.au.auth0.com"
+      clientId="FhPjfk30gjwr3oaEM6RFlDkNCi8Tszy2"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: '',
+        audience: 'https://tailtrail/api',
       }}
     >
       <QueryClientProvider client={queryClient}>
