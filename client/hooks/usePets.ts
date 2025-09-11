@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import { getPets, getPetsByStatus } from '../apis/pets'
+import { getPets } from '../apis/pets'
 import { Pet } from '../../models/pet'
-import {loadingPawprint} from '../../apis/LoadingPaw.tsx'
 
 export function usePets() {
   const [pets, setPets] = useState<Pet[]>([])
@@ -13,7 +12,7 @@ export function usePets() {
       try {
         const petsData = await getPets()
         setPets(petsData)
-        setLoading(loadingPawprint)
+        setLoading(false)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
         setLoading(false)
