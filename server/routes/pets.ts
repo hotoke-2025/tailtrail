@@ -41,4 +41,29 @@ router.post('/', async (req, res) => {
   }
 })
 
+// PATCH /api/v1/pets/:id - Update a pet
+router.patch('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    const updatedData = req.body
+    await db.updatePetById(id, updatedData)
+    res.sendStatus(204)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Failed to update pet' })
+  }
+})
+
+// DELETE /api/v1/pets/:id - Delete a pet
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = Number(req.params.id)
+    await db.deletePetById(id)
+    res.sendStatus(204)
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Failed to delete pet' })
+  }
+})
+
 export default router

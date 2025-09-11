@@ -19,3 +19,12 @@ export async function addPet(data: Pet) {
   const newPet = await getPetById(id)
   return newPet
 }
+// UPDATE a pet by ID
+export async function updatePetById(id: number, data: Pet) {
+  await db('pets').where({ id }).update(data)
+}
+
+// DELETE a pet by ID
+export async function deletePetById(id: number) {
+  await db('pets').where({ id }).del()
+}
