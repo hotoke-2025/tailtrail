@@ -1,5 +1,5 @@
 import request from 'superagent'
-import type { Pet } from '../../models/pet'
+import type { Pet, PetData } from '../../models/pet'
 
 const rootURL = new URL(`/api/v1`, document.baseURI)
 
@@ -15,7 +15,7 @@ export async function getPetById(id: number): Promise<Pet> {
   return response.body as Pet
 }
 // POST (Add new pet)
-export async function addPet(data: Pet): Promise<Pet> {
+export async function addPet(data: PetData): Promise<Pet> {
   const response = await request
     .post(`${rootURL}/pets`)
     .send(data)
