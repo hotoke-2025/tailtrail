@@ -58,13 +58,7 @@ const filteredPets = pets.filter((pet) => {
       {/* Map as a main component */}
       <main className="w-[60%] p-4 relative">
         <LostFoundButton filter={filter} setFilter={setFilter} />
-        <MapComponent /> 
-        {/* pets={filteredPets} Add this to mapcomponent when map is ready */}
-
-        {/* <div className="absolute top-4 right-4 flex gap-2">
-          <button className="bg-red-600 text-white px-4 py-2 rounded">LOST</button>
-          <button className="bg-green-500 text-white px-4 py-2 rounded">FOUND</button>
-        </div> */}
+        <MapComponent filter={filter} />
       </main>
     </div>
     </>

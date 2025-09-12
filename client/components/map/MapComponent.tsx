@@ -2,6 +2,10 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import LoadingPawprint from '../LoadingPaw.tsx'
 import PetMarker from './PetPin.tsx'
 
+interface MapComponentProps {
+  filter: 'all' | 'lost' | 'found'
+}
+
 const containerStyle = {
   width: '100%',
   height: '800px'
@@ -58,7 +62,24 @@ const testLostMarker = {
   registration_number: 12345,
 }
 
-export default function MapComponent() {
+function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
+  const markers = []
+  if (filter === 'all' || filter === 'found') {
+    markers.push({
+      pet: testFoundMarker,
+      position: defaultCenter,
+    })
+  }
+  if (filter === 'all' || filter === 'lost') {
+    markers.push({
+      pet: testLostMarker,
+      position: defaultCentertest,
+    })
+  }
+  return markers
+}
+
+export default function MapComponent({ filter }: MapComponentProps) {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
 
   if (!apiKey) {
@@ -68,6 +89,8 @@ export default function MapComponent() {
       </div>
     )
   }
+
+  const filteredMarkers = getFilteredMarkers(filter)
 
   return (
     <LoadScript 
@@ -86,7 +109,7 @@ export default function MapComponent() {
           mapTypeControl: false,
         }}
       >
-          {/* Example marker*/}
+          {/* Example marker
         <PetMarker 
         pet={testFoundMarker} 
           position={defaultCenter} 
@@ -94,7 +117,12 @@ export default function MapComponent() {
         <PetMarker 
         pet={testLostMarker} 
           position={defaultCentertest}
-        />
+        /> */}
+
+        {/* SHOW ONLY FILTERED MARKERS */}
+        {filteredMarkers.map(({ pet, position }) => (
+          <PetMarker key={pet.id} pet={pet} position={position} />
+        ))}
       </GoogleMap>
     </LoadScript>
   )

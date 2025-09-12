@@ -1,5 +1,5 @@
 // This component display only the LOST / FOUND / ALL buttons. 
-// //All logic is it Home.tsx component.
+// All logic is it Home.tsx component.
 
 interface LostFoundButtonProps {
   filter: 'all' | 'lost' | 'found'
