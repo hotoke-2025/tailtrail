@@ -15,10 +15,27 @@ export async function getPetById(id: number | string) {
 
 //POST: Add a new pet
 export async function addPet(data: Pet) {
-  const [id] = await db('pets').insert(data)
+  const [id] = await db('pets').insert({
+    species: data.species,
+    breed: data.breed,
+    name: data.name,
+    sex: data.sex,
+    desexed: data.desexed,
+    colour: data.colour,
+    age: data.age,
+    size: data.size,
+    microchipped: data.microchipped,
+    home_suburb: data.homeSuburb,
+    last_location: data.lastLocation,
+    last_seen_date: data.lastSeenDate,
+    photo_url: data.photoUrl,
+    registration_number: data.registrationNumber,
+  })
+  // { last_seen_date: data.lastSeenDate }
   const newPet = await getPetById(id)
   return newPet
 }
+
 // UPDATE a pet by ID
 export async function updatePetById(id: number, data: Pet) {
   await db('pets').where({ id }).update(data)
