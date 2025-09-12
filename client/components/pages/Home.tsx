@@ -1,8 +1,34 @@
+import { useState, useEffect } from 'react'
 import MapComponent from '../map/MapComponent'
 import LoginButton from '../nav/LoginButton'
 import ListOfPets from '../pets/ListOfPets'
+import type { Pet } from '../../../models/pet'
+import LostFoundButton from './LostFoundButton'
 
 export default function HomePage() {
+  // Filter state and pet state
+  const [filter, setFilter] = useState<'all' | 'lost' | 'found'>('all')
+  const [pets, setPets] = useState<Pet[]>([])
+
+  // Get pets from the API when the component appears 
+  useEffect(() => {
+    async function fetchPets() {
+      const res = await fetch('/api/v1/pets')
+      const data: Pet[] = await res.json()
+      setPets(data)
+    }
+    fetchPets()
+  }, [])
+
+  // Apply filtering logic
+const filteredPets = pets.filter((pet) => {
+  const lostValue = String(pet.lost).toLowerCase()
+
+  if (filter === 'lost') return lostValue === 'true'
+  if (filter === 'found') return lostValue === 'false'
+  return true
+})
+
   return (
     <>
       <h1 className="mb-4 text-2xl font-bold">Welcome to TailTrail</h1>
@@ -22,27 +48,19 @@ export default function HomePage() {
             <p>Add Pet Button</p>
           </div>
 
-          <div className="mt-6">
-            <h3 className="font-semibold">Recent Logs</h3>
-            <ListOfPets />
-          </div>
-        </aside>
+        <div className="mt-6">
+          <h3 className="font-semibold">Recent Logs</h3>
+          <ListOfPets pets={filteredPets} />
+        </div>
+      </aside>
 
-        {/* RIGHT COLUMN */}
-        {/* Map as a main component */}
-        <main className="relative w-[60%] p-4">
-          <MapComponent />
-
-          <div className="absolute right-4 top-4 flex gap-2">
-            <button className="rounded bg-red-600 px-4 py-2 text-white">
-              LOST
-            </button>
-            <button className="rounded bg-green-500 px-4 py-2 text-white">
-              FOUND
-            </button>
-          </div>
-        </main>
-      </div>
+      {/* RIGHT COLUMN */}
+      {/* Map as a main component */}
+      <main className="w-[60%] p-4 relative">
+        <LostFoundButton filter={filter} setFilter={setFilter} />
+        <MapComponent filter={filter} />
+      </main>
+    </div>
     </>
   )
 }

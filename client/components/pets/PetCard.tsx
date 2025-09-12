@@ -18,12 +18,12 @@ export default function PetCard({ pet }: Props) {
         <li><strong>Age:</strong> {pet.age}</li>
         <li><strong>Size:</strong> {pet.size}</li>
         <li><strong>Microchipped:</strong> {pet.microchipped ? 'Yes' : 'No'}</li>
-        <li><strong>Home Suburb:</strong> {pet.home_suburb}</li>
-        <li><strong>Last Location:</strong> {pet.last_location}</li>
-        <li><strong>Last Seen Date:</strong> {pet.last_seen_date}</li>
-        <li><strong>Photo URL:</strong> {pet.photo_url}</li>
+        <li><strong>Home Suburb:</strong> {pet.homeSuburb}</li>
+        <li><strong>Last Location:</strong> {pet.lastLocation}</li>
+        <li><strong>Last Seen Date:</strong> {pet.lastSeenDate}</li>
+        <li><strong>Photo URL:</strong> {pet.photoUrl}</li>
         <li><strong>Lost:</strong> {pet.lost ? 'Yes' : 'No'}</li>
-        <li><strong>Registration Number:</strong> {pet.registration_number}</li>
+        <li><strong>Registration Number:</strong> {pet.registrationNumber}</li>
       </ul>
     </div>
   )

@@ -1,34 +1,23 @@
-import { useQuery } from '@tanstack/react-query'
-import { getPets } from '../../apis/pets'
 import PetCard from './PetCard'
 import type { Pet } from '../../../models/pet'
 
-export default function ListOfPets() {
-  const {
-    data: pets,
-    isLoading,
-    isError,
-  } = useQuery<Pet[]>({
-    queryKey: ['pets'],
-    queryFn: getPets,
-  })
+interface Props {
+  pets: Pet[] // declare prop
+}
 
-  if (isLoading) {
-    return <p>Loading pets...</p>
-  }
-
-  if (isError) {
-    return <p>Could not load pets. Please try again later.</p>
-  }
-
+export default function ListOfPets({ pets }: Props) {
   return (
     <div>
-      <h2>Lost anf Found Pets</h2>
-      <div>
-        {pets?.map((pet) => (
-          <PetCard key={pet.id} pet={pet} />
-        ))}
-      </div>
+      <h2>Lost and Found Pets</h2>
+      {pets.length === 0 ? (
+        <p className="text-gray-500 italic">No pets found for this filter.</p>
+      ) : (
+        <div>
+          {pets.map((pet) => (
+            <PetCard key={pet.id} pet={pet} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
