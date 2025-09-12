@@ -4,30 +4,35 @@ import LoginButton from '../nav/LoginButton'
 import ListOfPets from '../pets/ListOfPets'
 import type { Pet } from '../../../models/pet'
 import LostFoundButton from './LostFoundButton'
+import LostPetFormPopUp from '../pets/LostPetFormPopUp'
+import LostPetForm from '../pets/LostPetForm'
 
 export default function HomePage() {
   // Filter state and pet state
   const [filter, setFilter] = useState<'all' | 'lost' | 'found'>('all')
   const [pets, setPets] = useState<Pet[]>([])
+  const [isLostPetFormOpen, setLostPetFormOpen] = useState(false)
 
-  // Get pets from the API when the component appears 
+  // Fetch pets function, can be called from anywhere
+  const fetchPets = async () => {
+    const res = await fetch('/api/v1/pets')
+    const data: Pet[] = await res.json()
+    setPets(data)
+  }
+
+  // Get pets from the API when the component appears
   useEffect(() => {
-    async function fetchPets() {
-      const res = await fetch('/api/v1/pets')
-      const data: Pet[] = await res.json()
-      setPets(data)
-    }
     fetchPets()
   }, [])
 
   // Apply filtering logic
-const filteredPets = pets.filter((pet) => {
-  const lostValue = String(pet.lost).toLowerCase()
+  const filteredPets = pets.filter((pet) => {
+    const lostValue = String(pet.lost).toLowerCase()
 
-  if (filter === 'lost') return lostValue === 'true'
-  if (filter === 'found') return lostValue === 'false'
-  return true
-})
+    if (filter === 'lost') return lostValue === 'true'
+    if (filter === 'found') return lostValue === 'false'
+    return true
+  })
 
   return (
     <>
@@ -42,25 +47,36 @@ const filteredPets = pets.filter((pet) => {
           </div>
 
           <div>
-            <h2 className="mb-2 text-xl font-bold">Pet Profile / Add Pet</h2>
+            <h2 className="mb-2 text-xl font-bold">Pet Profile</h2>
             {/* Add profile image, form, etc. here */}
             <p>Profile info</p>
-            <p>Add Pet Button</p>
+            <button onClick={() => setLostPetFormOpen(true)}>
+              Report a lost animal
+            </button>
+            <LostPetFormPopUp
+              isOpen={isLostPetFormOpen}
+              onClose={() => setLostPetFormOpen(false)}
+            >
+              <LostPetForm
+                onClose={() => setLostPetFormOpen(false)}
+                onSuccess={fetchPets}
+              />
+            </LostPetFormPopUp>
           </div>
 
-        <div className="mt-6">
-          <h3 className="font-semibold">Recent Logs</h3>
-          <ListOfPets pets={filteredPets} />
-        </div>
-      </aside>
+          <div className="mt-6">
+            <h3 className="font-semibold">Recent Logs</h3>
+            <ListOfPets pets={filteredPets} />
+          </div>
+        </aside>
 
-      {/* RIGHT COLUMN */}
-      {/* Map as a main component */}
-      <main className="w-[60%] p-4 relative">
-        <LostFoundButton filter={filter} setFilter={setFilter} />
-        <MapComponent filter={filter} />
-      </main>
-    </div>
+        {/* RIGHT COLUMN */}
+        {/* Map as a main component */}
+        <main className="relative w-[60%] p-4">
+          <LostFoundButton filter={filter} setFilter={setFilter} />
+          <MapComponent filter={filter} />
+        </main>
+      </div>
     </>
   )
 }

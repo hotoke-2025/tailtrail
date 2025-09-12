@@ -21,7 +21,12 @@ const initialState = {
   registrationNumber: 0,
 }
 
-export default function LostPetForm() {
+type LostPetFormProps = {
+  onClose?: () => void
+  onSuccess?: () => void
+}
+
+export default function LostPetForm({ onClose, onSuccess }: LostPetFormProps) {
   const [formData, setFormData] = useState(initialState)
 
   const handleChange = (
@@ -35,8 +40,13 @@ export default function LostPetForm() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    addMutation.mutate(formData)
-    setFormData(initialState)
+    addMutation.mutate(formData, {
+      onSuccess: () => {
+        setFormData(initialState)
+        if (onClose) onClose()
+        if (onSuccess) onSuccess()
+      },
+    })
   }
 
   function addLostPet(variables: PetData) {
@@ -53,7 +63,7 @@ export default function LostPetForm() {
   })
 
   // not sure what to do for the "photoURL" segment of the form
-  // malta library. PetPals. docs file README for malta
+  // multer library. PetPals. docs file README for multer
   // how are "id" and "owner id" handled here?
   // do any owner details go here? For the database
 
