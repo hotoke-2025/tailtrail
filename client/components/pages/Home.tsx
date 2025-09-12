@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import MapComponent from '../map/MapComponent'
+import LoginButton from '../nav/LoginButton'
 import ListOfPets from '../pets/ListOfPets'
 import type { Pet } from '../../../models/pet'
 import LostFoundButton from './LostFoundButton'
@@ -30,22 +31,22 @@ const filteredPets = pets.filter((pet) => {
 
   return (
     <>
-    <h1 className='text-2xl font-bold mb-4'>Welcome to TailTrail</h1>
-    
-    <div className="home-page flex h-[calc(100vh-100px)]">
-      {/* LEFT COLUMN */}
-      {/* All components are here */}
-      <aside className="w-[40%] p-4 border-r overflow-y-auto">
-        <div>
-          <h2>Login page</h2>
-        </div>
-        
-        <div>
-          <h2 className="text-xl font-bold mb-2">Pet Profile / Add Pet</h2>
-          {/* Add profile image, form, etc. here */}
-          <p>Profile info</p>
-          <p>Add Pet Button</p>
-        </div>
+      <h1 className="mb-4 text-2xl font-bold">Welcome to TailTrail</h1>
+
+      <div className="home-page flex h-[calc(100vh-100px)]">
+        {/* LEFT COLUMN */}
+        {/* All components are here */}
+        <aside className="w-[40%] overflow-y-auto border-r p-4">
+          <div>
+            <LoginButton />
+          </div>
+
+          <div>
+            <h2 className="mb-2 text-xl font-bold">Pet Profile / Add Pet</h2>
+            {/* Add profile image, form, etc. here */}
+            <p>Profile info</p>
+            <p>Add Pet Button</p>
+          </div>
 
         <div className="mt-6">
           <h3 className="font-semibold">Recent Logs</h3>
@@ -67,6 +68,5 @@ const filteredPets = pets.filter((pet) => {
       </main>
     </div>
     </>
-
   )
 }

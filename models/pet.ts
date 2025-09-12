@@ -1,6 +1,6 @@
 export interface Pet {
   id: number
-  owner_id: number
+  ownerId: number
   species: string
   breed: string
   name: string
@@ -10,10 +10,28 @@ export interface Pet {
   age: number
   size: string
   microchipped: boolean
-  home_suburb: string
-  last_location: string
-  last_seen_date: string
-  photo_url: string
+  homeSuburb: string
+  lastLocation: string
+  lastSeenDate: string
+  photoUrl: string
   lost: boolean
-  registration_number: number
+  registrationNumber: number
+}
+
+export interface PetData {
+  species: string
+  breed: string
+  name: string
+  sex: string
+  desexed: boolean
+  colour: string
+  age: number
+  size: string
+  microchipped: boolean
+  homeSuburb: string
+  lastLocation: string
+  lastSeenDate: string
+  photoUrl: string
+  lost: boolean
+  registrationNumber: number
 }
