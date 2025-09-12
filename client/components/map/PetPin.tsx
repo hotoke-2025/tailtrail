@@ -1,6 +1,6 @@
 import { Marker, InfoWindow } from '@react-google-maps/api'
 import { Pet } from '../../../models/pet'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import InfoCard from '../pets/InfoCard'
 
 interface PetMarkerProps {
@@ -11,8 +11,22 @@ interface PetMarkerProps {
 
 export default function PetMarker({ pet, position }: PetMarkerProps) {
   const [isInfoWindowOpen, setIsInfoWindowOpen] = useState(false)
-    //function for image icon resize
+  const [iconUrl, setIconUrl] = useState(pet.photo_url || '/replacewithlogo.jpg')
+   
+  useEffect(() => {
+    if (!pet.photo_url) {
+      setIconUrl('/replacewithlogo.jpg')
+      return
+    }
+    const img = new window.Image()
+    img.src = pet.photo_url
+    img.onload = () => setIconUrl(pet.photo_url)
+    img.onerror = () => setIconUrl('/replacewithlogo.jpg')
+  }, [pet.photo_url])
+  //function for image icon resize
 const customIcon = {  
+    url: pet.photo_url || '/replacewithlogo.jpg', 
+    scaledSize: new google.maps.Size(50, 50),  
 }
     //function for alt image if no image found
     
@@ -21,7 +35,6 @@ const customIcon = {
         icon={customIcon}
         title={pet.name}
         onClick={() => setIsInfoWindowOpen(true)}
-        onError={() => customIcon.url = '/derp.png'}
         >
             {isInfoWindowOpen && (
                 <InfoWindow onCloseClick={() => setIsInfoWindowOpen(false)}
