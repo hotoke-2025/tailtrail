@@ -26,9 +26,9 @@ export default function PetCardPopUp({ pet, onClose }: PetCardPopUpProps) {
         <p><strong>Age:</strong> {pet.age}</p>
         <p><strong>Size:</strong> {pet.size}</p>
         <p><strong>Microchipped:</strong> {pet.microchipped ? 'Yes' : 'No'}</p>
-        <p><strong>Home Suburb:</strong> {pet.home_suburb}</p>
-        <p><strong>Last Location:</strong> {pet.last_location}</p>
-        <p><strong>Last Seen:</strong> {pet.last_seen_date}</p>
+        <p><strong>Home Suburb:</strong> {pet.homeSuburb}</p>
+        <p><strong>Last Location:</strong> {pet.lastLocation}</p>
+        <p><strong>Last Seen:</strong> {pet.lastSeenDate}</p>
         <p><strong>Lost:</strong> {pet.lost ? 'Yes' : 'No'}</p>
         <p><strong>Registration #:</strong> {pet.registrationNumber}</p>
       </div>
