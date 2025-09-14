@@ -52,7 +52,7 @@ export async function seed(knex) {
       desexed: 'true',
       home_suburb: 'milford',
       last_location: 'milford beach',
-      last_seen_date: '2025-15-08',
+      last_seen_date: '2025-08-15',
       photo_url: 'photoofadog.jpg',
       lost: 'true',
       registration_number: 98765,
