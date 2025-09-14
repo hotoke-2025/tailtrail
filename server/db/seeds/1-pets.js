@@ -22,6 +22,8 @@ export async function seed(knex) {
       photo_url: '1000012489.jpg',
       lost: 'true',
       registration_number: 12345,
+      latitude: '-36.848461',
+      longitude: '174.763336',
     },
     {
       id: 2,
@@ -41,6 +43,8 @@ export async function seed(knex) {
       photo_url: 'mochicat.jpg',
       lost: 'true',
       registration_number: 54321,
+      latitude: '-20.84845',
+      longitude: '175.763036',
     },
     {
       id: 3,
@@ -52,10 +56,12 @@ export async function seed(knex) {
       desexed: 'true',
       home_suburb: 'milford',
       last_location: 'milford beach',
-      last_seen_date: '2025-15-08',
+      last_seen_date: '2025-08-15',
       photo_url: 'photoofadog.jpg',
       lost: 'true',
       registration_number: 98765,
+      latitude: '-32.84845',
+      longitude: '173.763036',
     },
     {
       id: 4,
@@ -71,6 +77,8 @@ export async function seed(knex) {
       photo_url: 'charlie.jpg',
       lost: 'false',
       registration_number: 45612,
+      latitude: '-36.84845',
+      longitude: '174.763036',
     },
   ])
 }

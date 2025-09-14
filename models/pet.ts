@@ -16,6 +16,8 @@ export interface Pet {
   photoUrl: string
   lost: boolean
   registrationNumber: number
+  latitude: string
+  longitude: string
 }
 
 export interface PetData {
@@ -34,4 +36,6 @@ export interface PetData {
   photoUrl: string
   lost: boolean
   registrationNumber: number
+  latitude: string
+  longitude: string
 }

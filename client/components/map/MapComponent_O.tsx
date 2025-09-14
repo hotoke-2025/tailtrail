@@ -1,9 +1,9 @@
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import LoadingPawprint from '../LoadingPaw.tsx'
 import PetMarker from './PetPin.tsx'
-import PetCard from './PetCard'
-import type { Pet } from '../../../models/pet.ts'
-import { usePets } from '../../hooks/usePets.ts'
+// import PetCard from './PetCard'
+// import type { Pet } from '../../../models/pet'
+// import { usePets } from '../../hooks/usePets'
 
 interface MapComponentProps {
   filter: 'all' | 'lost' | 'found'
@@ -14,7 +14,6 @@ const containerStyle = {
   height: '800px',
 }
 
-// Auckland fallback
 const defaultCenter = {
   lat: -36.848461,
   lng: 174.763336,
@@ -59,32 +58,13 @@ const testLostMarker = {
   size: 'medium',
   microchipped: true,
   home_suburb: 'island bay',
-  last_location: 'albany',
+  last_location: 'island bay beach',
   last_seen_date: '2025-10-09',
   photo_url: 'https://zaakkuu.github.io/images/20250618_104509.jpg',
   lost: true,
   registration_number: 12345,
 }
 
-// // Test Filters for hard-coded data
-// function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
-//   const markers = []
-//   if (filter === 'all' || filter === 'found') {
-//     markers.push({
-//       pet: testFoundMarker,
-//       position: defaultCenter,
-//     })
-//   }
-//   if (filter === 'all' || filter === 'lost') {
-//     markers.push({
-//       pet: testLostMarker,
-//       position: defaultCentertest,
-//     })
-//   }
-//   return markers
-// }
-
-// Filters for dynamic data
 function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
   const markers = []
   if (filter === 'all' || filter === 'found') {
@@ -96,7 +76,7 @@ function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
   if (filter === 'all' || filter === 'lost') {
     markers.push({
       pet: testLostMarker,
-      position: defaultCenter,
+      position: defaultCentertest,
     })
   }
   return markers

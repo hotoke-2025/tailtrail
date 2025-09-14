@@ -20,6 +20,8 @@ export async function up(knex) {
     table.string('photo_url')
     table.boolean('lost')
     table.integer('registration_number')
+    table.string('latitude')
+    table.string('longitude')
   })
 }
 
