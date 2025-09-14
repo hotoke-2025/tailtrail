@@ -8,6 +8,10 @@ import LostFoundButton from './LostFoundButton'
 import RecentLogs from '../pets/RecentLogs'
 =======
 import LostPetForm from '../pets/LostPetForm'
+<<<<<<< HEAD
+>>>>>>> main
+=======
+import RecentLogs from '../pets/RecentLogs'
 >>>>>>> main
 
 export default function HomePage() {
@@ -69,8 +73,12 @@ export default function HomePage() {
           <div className="mt-6">
             <h3 className="font-semibold">Recent Logs</h3>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <RecentLogs pets={pets} />
 =======
+>>>>>>> main
+=======
+            <RecentLogs pets={pets} />
 >>>>>>> main
             <ListOfPets pets={filteredPets} />
           </div>
