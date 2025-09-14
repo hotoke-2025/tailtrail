@@ -4,13 +4,27 @@ import { Pet } from '../../models/pet.ts'
 // GET all pets from the "pets" table
 export async function getAllPets() {
   const pets = await db('pets').select()
-  return pets as Pet[]
+  return pets.map((pet) => ({
+    ...pet,
+    homeSuburb: pet.home_suburb,
+    lastLocation: pet.last_location,
+    lastSeenDate: pet.last_seen_date,
+    photoUrl: pet.photo_url,
+    registrationNumber: pet.registration_number,
+  })) as Pet[]
 }
 
 // GET by ID
 export async function getPetById(id: number | string) {
   const pet = await db('pets').select().first().where({ id })
-  return pet as Pet
+  return {
+    ...pet,
+    homeSuburb: pet.home_suburb,
+    lastLocation: pet.last_location,
+    lastSeenDate: pet.last_seen_date,
+    photoUrl: pet.photo_url,
+    registrationNumber: pet.registration_number,
+  } as Pet
 }
 
 //POST: Add a new pet
