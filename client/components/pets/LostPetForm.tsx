@@ -18,15 +18,20 @@ const initialState = {
   lastSeenDate: '',
   photoUrl: '',
   lost: true,
-  registrationNumber: 0,
+  registrationNumber: '',
 }
 
 type LostPetFormProps = {
+  isOpen: boolean
   onClose?: () => void
   onSuccess?: () => void
 }
 
-export default function LostPetForm({ onClose, onSuccess }: LostPetFormProps) {
+export default function LostPetForm({
+  isOpen,
+  onClose,
+  onSuccess,
+}: LostPetFormProps) {
   const [formData, setFormData] = useState(initialState)
 
   const handleChange = (
@@ -62,134 +67,194 @@ export default function LostPetForm({ onClose, onSuccess }: LostPetFormProps) {
     },
   })
 
+  if (!isOpen) return null
+
   // not sure what to do for the "photoURL" segment of the form
   // multer library. PetPals. docs file README for multer
   // how are "id" and "owner id" handled here?
   // do any owner details go here? For the database
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name:</label>
-      <input
-        value={formData.name}
-        onChange={handleChange}
-        type="text"
-        id="name"
-        placeholder="Name of the animal"
-        required
-      />
-      <label htmlFor="species">Species:</label>
-      <input
-        value={formData.species}
-        onChange={handleChange}
-        type="text"
-        id="species"
-        placeholder="Species of the animal"
-        required
-      />
-      <label>
-        Sex:
-        <select value={formData.sex} onChange={handleChange} id="sex" required>
-          <option value="">Select</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-        </select>
-      </label>
-      <label htmlFor="home suburb">Home Suburb:</label>
-      <input
-        value={formData.homeSuburb}
-        onChange={handleChange}
-        type="text"
-        id="homeSuburb"
-        placeholder="Home suburb of the animal"
-        required
-      />
-      <label htmlFor="registration number">Council Registration Number:</label>
-      <input
-        value={formData.registrationNumber}
-        onChange={handleChange}
-        type="number"
-        id="registrationNumber"
-        placeholder="The council registration number of the animal (if applicable)"
-      />
-      <label htmlFor="microchipped">Is the animal micro-chipped?</label>
-      <input
-        type="checkbox"
-        checked={formData.microchipped}
-        onChange={(e) =>
-          setFormData({ ...formData, microchipped: e.target.checked })
-        }
-        id="microchipped"
-      />
-      <label htmlFor="desexed">Has the animal been desexed?</label>
-      <input
-        type="checkbox"
-        checked={formData.desexed}
-        onChange={(e) =>
-          setFormData({ ...formData, desexed: e.target.checked })
-        }
-        id="desexed"
-      />
-      <label htmlFor="breed">Breed:</label>
-      <input
-        value={formData.breed}
-        onChange={handleChange}
-        type="text"
-        id="breed"
-        placeholder="Breed of the animal (if applicable)"
-      />
-      <label htmlFor="colour">Colours:</label>
-      <input
-        value={formData.colour}
-        onChange={handleChange}
-        type="text"
-        id="colour"
-        placeholder="Dominant colours of the animal"
-      />
-      <label htmlFor="age">Age:</label>
-      <input
-        value={formData.age}
-        onChange={handleChange}
-        type="number"
-        id="age"
-        placeholder="Approximate age of the animal"
-      />
-      <label>
-        Size:
-        <select value={formData.size} onChange={handleChange} id="size">
-          <option value="">Select</option>
-          <option value="Very small">Very small</option>
-          <option value="Small">Small</option>
-          <option value="Medium">Medium</option>
-          <option value="Large">Large</option>
-          <option value="Very large">Very large</option>
-        </select>
-      </label>
-      <label htmlFor="last location">Last Known Location:</label>
-      <input
-        value={formData.lastLocation}
-        onChange={handleChange}
-        type="text"
-        id="lastLocation"
-        placeholder="Last known location of the animal (as specifically as you can)"
-      />
-      <label htmlFor="last seen date">Date Last Seen:</label>
-      <input
-        value={formData.lastSeenDate}
-        onChange={handleChange}
-        type="date"
-        id="lastSeenDate"
-        placeholder="Date on which the animal was last seen in the last known location"
-      />
-      <label htmlFor="photo url">Photo:</label>
-      <input
-        value={formData.photoUrl}
-        onChange={handleChange}
-        type="text"
-        id="photoUrl"
-        placeholder="Upload an up-to-date photo of the animal"
-      />
-      <button data-pending={addMutation.isPending}>Submit</button>
-    </form>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="relative w-full max-w-xl rounded bg-white p-6 shadow-lg">
+        <button
+          onClick={onClose}
+          className="absolute right-2 top-2 text-gray-600 hover:text-gray-800"
+        >
+          Close
+        </button>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">
+            <strong>Name: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.name}
+            onChange={handleChange}
+            type="text"
+            id="name"
+            required
+          />
+          <br></br>
+          <label htmlFor="species">
+            <strong>Species: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.species}
+            onChange={handleChange}
+            type="text"
+            id="species"
+            required
+          />
+          <br></br>
+          <label>
+            <strong>Sex: </strong>
+            <select
+              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.sex}
+              onChange={handleChange}
+              id="sex"
+              required
+            >
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </label>
+          <br></br>
+          <label htmlFor="home suburb">
+            <strong>Home Suburb: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.homeSuburb}
+            onChange={handleChange}
+            type="text"
+            id="homeSuburb"
+            required
+          />
+          <br></br>
+          <label htmlFor="registration number">
+            <strong>Council Registration Number: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.registrationNumber}
+            onChange={handleChange}
+            type="string"
+            id="registrationNumber"
+          />
+          <br></br>
+          <label htmlFor="microchipped">
+            <strong>Is the animal micro-chipped? </strong>
+          </label>
+          <input
+            type="checkbox"
+            checked={formData.microchipped}
+            onChange={(e) =>
+              setFormData({ ...formData, microchipped: e.target.checked })
+            }
+            id="microchipped"
+          />
+          <br></br>
+          <label htmlFor="desexed">
+            <strong>Has the animal been desexed? </strong>
+          </label>
+          <input
+            type="checkbox"
+            checked={formData.desexed}
+            onChange={(e) =>
+              setFormData({ ...formData, desexed: e.target.checked })
+            }
+            id="desexed"
+          />
+          <br></br>
+          <label htmlFor="breed">
+            <strong>Breed: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.breed}
+            onChange={handleChange}
+            type="text"
+            id="breed"
+          />
+          <br></br>
+          <label htmlFor="colour">
+            <strong>Colours: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.colour}
+            onChange={handleChange}
+            type="text"
+            id="colour"
+          />
+          <br></br>
+          <label htmlFor="age">
+            <strong>Age: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.age}
+            onChange={handleChange}
+            type="number"
+            id="age"
+            placeholder="Approximate age of the animal"
+          />
+          <br></br>
+          <label>
+            <strong>Size: </strong>
+            <select
+              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.size}
+              onChange={handleChange}
+              id="size"
+            >
+              <option value="">Select</option>
+              <option value="Very small">Very small</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
+              <option value="Very large">Very large</option>
+            </select>
+          </label>
+          <br></br>
+          <label htmlFor="last location">
+            <strong>Last Known Location: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.lastLocation}
+            onChange={handleChange}
+            type="text"
+            id="lastLocation"
+          />
+          <br></br>
+          <label htmlFor="last seen date">
+            <strong>Date Last Seen: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.lastSeenDate}
+            onChange={handleChange}
+            type="date"
+            id="lastSeenDate"
+          />
+          <br></br>
+          <div className="mt-4 flex justify-center">
+            <button>
+              <strong>Upload photo</strong>
+            </button>
+          </div>
+          <div className="mt-4 flex justify-center">
+            <button data-pending={addMutation.isPending}>
+              <strong>Submit</strong>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }

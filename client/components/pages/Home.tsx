@@ -4,7 +4,6 @@ import LoginButton from '../nav/LoginButton'
 import ListOfPets from '../pets/ListOfPets'
 import type { Pet } from '../../../models/pet'
 import LostFoundButton from './LostFoundButton'
-import LostPetFormPopUp from '../pets/LostPetFormPopUp'
 import LostPetForm from '../pets/LostPetForm'
 
 export default function HomePage() {
@@ -53,15 +52,11 @@ export default function HomePage() {
             <button onClick={() => setLostPetFormOpen(true)}>
               Report a lost animal
             </button>
-            <LostPetFormPopUp
+            <LostPetForm
               isOpen={isLostPetFormOpen}
               onClose={() => setLostPetFormOpen(false)}
-            >
-              <LostPetForm
-                onClose={() => setLostPetFormOpen(false)}
-                onSuccess={fetchPets}
-              />
-            </LostPetFormPopUp>
+              onSuccess={fetchPets}
+            />
           </div>
 
           <div className="mt-6">

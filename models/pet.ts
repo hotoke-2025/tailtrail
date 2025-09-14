@@ -15,7 +15,7 @@ export interface Pet {
   lastSeenDate: string
   photoUrl: string
   lost: boolean
-  registrationNumber: number
+  registrationNumber: string
 }
 
 export interface PetData {
@@ -33,5 +33,5 @@ export interface PetData {
   lastSeenDate: string
   photoUrl: string
   lost: boolean
-  registrationNumber: number
+  registrationNumber: string
 }
