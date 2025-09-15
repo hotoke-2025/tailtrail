@@ -6,7 +6,7 @@ export default function Footer() {
   const [showContact, setShowContact] = useState(false)
 
   return (
-    <footer className="w-full bg-[#e6f0f6] text-gray-700 py-6 px-4 mt-12 shadow-inner">
+    <footer className="fixed bottom-0 left-0 w-full z-50 bg-blue-50/95 shadow p-4 text-center text-sm text-gray-700">
       <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
         <p className="text-sm">&copy; {new Date().getFullYear()} TailTrail. All rights reserved.</p>
 

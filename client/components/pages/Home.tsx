@@ -38,8 +38,8 @@ export default function HomePage() {
   return (
     <>
       <h1 className="mb-4 text-2xl font-bold">Welcome to TailTrail</h1>
-      
-      <div className="home-page flex h-[calc(100vh-100px)]">
+
+      <div className="home-page flex h-[calc(100vh-100px)] pb-20">
         {/* LEFT COLUMN */}
         {/* All components are here */}
         <aside className="w-[40%] overflow-y-auto border-r p-4">
@@ -70,7 +70,7 @@ export default function HomePage() {
 
         {/* RIGHT COLUMN */}
         {/* Map as a main component */}
-        <main className="relative w-[60%] p-4 h-full">
+        <main className="relative w-[60%] p-4">
           <LostFoundButton filter={filter} setFilter={setFilter} />
           <MapComponent filter={filter} />
         </main>
