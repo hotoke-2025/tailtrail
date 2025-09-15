@@ -2,6 +2,7 @@ import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import LoadingPawprint from '../LoadingPaw.tsx'
 import type { Pet } from '../../../models/pet.ts'
 import { usePets } from '../../hooks/usePets.ts'
+import PetMarker from './PetPin.tsx'
 
 interface MapComponentProps {
   filter: 'all' | 'lost' | 'found'
@@ -62,8 +63,13 @@ export default function MapComponent({ filter }: MapComponentProps) {
         }}
       >
         {/* Using the built-in Marker for testing */}
-        {filteredMarkers.map(({ pet, position }) => (
+        {/* {filteredMarkers.map(({ pet, position }) => (
           <Marker key={pet.id} position={position} title={pet.name} />
+        ))} */}
+
+        {/* Using the custome Marker */}
+        {filteredMarkers.map(({ pet, position }) => (
+          <PetMarker key={pet.id} pet={pet} position={position} />
         ))}
       </GoogleMap>
     </LoadScript>
