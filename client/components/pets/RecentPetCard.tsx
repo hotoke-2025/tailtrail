@@ -6,33 +6,33 @@ interface Props {
 
 export default function RecentPetCard({ pet }: Props) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm px-6 py-5 mb-4 hover:bg-gray-50 transition">
-
+    <div className="mb-4 rounded-2xl bg-white px-6 py-5 shadow-sm transition hover:bg-gray-50">
       {/* Flex row: image on left, name + badge (lost of found) on right */}
-      <div className="flex items-center gap-4 mb-4">
+      <div className="mb-4 flex items-center gap-4">
         {/* Pet image - circle avatar */}
         <img
-          src={`/images/${pet.photoUrl}`}
+          src={pet.photoUrl}
           alt={pet.name}
-          className="w-14 h-14 rounded-full object-cover border border-gray-300 shadow-sm" // Image as rounded avatar
+          className="h-14 w-14 rounded-full border border-gray-300 object-cover shadow-sm" // Image as rounded avatar
         />
 
         {/* Name and LOST badge side by side */}
         <div className="flex items-center gap-2">
-          <h2 className="text-lg font-semibold text-gray-800">{pet.name}</h2> {/* Pet name */}
+          <h2 className="text-lg font-semibold text-gray-800">{pet.name}</h2>{' '}
+          {/* Pet name */}
           {pet.lost ? (
-            <span className="text-xs bg-red-100 text-red-600 font-semibold px-2 py-[2px] rounded-full flex items-center gap-1">
+            <span className="flex items-center gap-1 rounded-full bg-red-100 px-2 py-[2px] text-xs font-semibold text-red-600">
               ⚠️ LOST
             </span>
           ) : (
-            <span className="text-xs bg-green-100 text-green-600 font-semibold px-2 py-[2px] rounded-full flex items-center gap-1">
+            <span className="flex items-center gap-1 rounded-full bg-green-100 px-2 py-[2px] text-xs font-semibold text-green-600">
               ✅ FOUND
             </span>
           )}
         </div>
       </div>
 
-      <ul className="text-sm font-medium text-gray-700 space-y-2">
+      <ul className="space-y-2 text-sm font-medium text-gray-700">
         <li>
           <strong>Species:</strong> {pet.species}
         </li>
@@ -51,7 +51,7 @@ export default function RecentPetCard({ pet }: Props) {
         <li>
           <strong>Last Seen Date:</strong> {pet.lastSeenDate}
         </li>
-       
+
         <li>
           <strong>Lost:</strong> {pet.lost ? 'Yes' : 'No'}
         </li>
