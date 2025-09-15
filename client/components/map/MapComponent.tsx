@@ -9,11 +9,7 @@ interface MapComponentProps {
 
 const containerStyle = {
   width: '100%',
-<<<<<<< HEAD
   height: '800px',
-=======
-  height: '600px'
->>>>>>> main
 }
 
 const defaultCenter = {
