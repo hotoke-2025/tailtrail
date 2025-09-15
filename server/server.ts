@@ -1,11 +1,13 @@
 import express from 'express'
 import * as Path from 'node:path'
 
-import petsRouter  from './routes/pets'
+import petsRouter from './routes/pets'
 
 const server = express()
 
 server.use(express.json())
+
+server.use(express.urlencoded({ extended: false }))
 
 server.use('/api/v1/pets', petsRouter)
 
