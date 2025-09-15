@@ -39,9 +39,7 @@ export default function LostPetForm({
     if (evt.target.files)
       setFormData({
         ...formData,
-        photoUrl: evt.target.files
-          ? URL.createObjectURL(evt.target.files[0])
-          : '',
+        file: evt.target.files[0],
       })
   }
 
