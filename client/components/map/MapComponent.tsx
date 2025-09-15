@@ -19,7 +19,7 @@ const defaultCenter = {
   lng: 174.763336,
 }
 
-//REMOVE LATER AFTER LOST AND FOUND TESTING
+// //REMOVE LATER AFTER LOST AND FOUND TESTING
 // const defaultCentertest = {
 //   lat: -36.898461,
 //   lng: 174.813336,
@@ -65,7 +65,25 @@ const defaultCenter = {
 //   registrationNumber: 12345,
 // }
 
-// // Test Filters for hard-coded data
+// // // Test Filters for hard-coded data
+// // function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
+// //   const markers = []
+// //   if (filter === 'all' || filter === 'found') {
+// //     markers.push({
+// //       pet: testFoundMarker,
+// //       position: defaultCenter,
+// //     })
+// //   }
+// //   if (filter === 'all' || filter === 'lost') {
+// //     markers.push({
+// //       pet: testLostMarker,
+// //       position: defaultCentertest,
+// //     })
+// //   }
+// //   return markers
+// // }
+
+// // Filters for dynamic data
 // function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
 //   const markers = []
 //   if (filter === 'all' || filter === 'found') {
@@ -77,42 +95,50 @@ const defaultCenter = {
 //   if (filter === 'all' || filter === 'lost') {
 //     markers.push({
 //       pet: testLostMarker,
-//       position: defaultCentertest,
+//       position: defaultCenter,
 //     })
 //   }
 //   return markers
 // }
 
+// export default function MapComponent({ filter }: MapComponentProps) {
+//   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+
+//   if (!apiKey) {
+//     return <div>Error no api key found</div>
+//   }
+
+//   const filteredMarkers = getFilteredMarkers(filter)
+
 export default function MapComponent({ filter }: MapComponentProps) {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
   const { pets, loading, error } = usePets()
 
-  if (!apiKey) {
-    return <div>Error no api key found</div>
-  }
+  if (!apiKey) return <div>Error: no API key found</div>
   if (loading) return <LoadingPawprint />
   if (error) return <div>Error loading pets: {error}</div>
   if (!pets || pets.length === 0) return <div>No pets to display</div>
 
-  const filteredMarkers = getFilteredMarkers(filter)
+  // Filter pets dynamically
+  const filteredMarkers = pets
+    .filter((p) => {
+      if (filter === 'all') return true
+      if (filter === 'lost') return p.lost
+      if (filter === 'found') return !p.lost
+      return true
+    })
+    .map((p) => {
+      const lat = parseFloat((p as any).latitude)
+      const lng = parseFloat((p as any).longitude)
 
-  // Filters for dynamic data
-  function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
-    const markers = []
-    if (filter === 'all' || filter === 'found') {
-      markers.push({
-        pet: testFoundMarker,
-        position: defaultCenter,
-      })
-    }
-    if (filter === 'all' || filter === 'lost') {
-      markers.push({
-        pet: testLostMarker,
-        position: defaultCenter,
-      })
-    }
-    return markers
-  }
+      if (isNaN(lat) || isNaN(lng)) {
+        console.warn(`Skipping pet ${p.id} due to invalid coords`, p)
+        return null
+      }
+
+      return { pet: p, position: { lat, lng } }
+    })
+    .filter(Boolean) as { pet: Pet; position: { lat: number; lng: number } }[]
 
   return (
     <LoadScript googleMapsApiKey={apiKey} loadingElement={<LoadingPawprint />}>
