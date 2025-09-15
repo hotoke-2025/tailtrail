@@ -39,3 +39,7 @@ export interface PetData {
   latitude: string
   longitude: string
 }
+
+export interface PetFileData extends PetData {
+  file: File | undefined
+}
