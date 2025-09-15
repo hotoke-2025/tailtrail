@@ -50,10 +50,19 @@ export default function LostPetForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    addMutation.mutate(formData, {
+    
+    const data = new FormData()
+
+    data.append('desexed', String(formData.desexed))
+    
+
+    addMutation.mutate(data, {
       onSuccess: () => {
         setFormData(initialState)
         if (onClose) onClose()
+        if (onSuccess) onSuccess()
+      },
+    })
         if (onSuccess) onSuccess()
       },
     })
