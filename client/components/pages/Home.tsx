@@ -6,6 +6,7 @@ import type { Pet } from '../../../models/pet'
 import LostFoundButton from './LostFoundButton'
 import LostPetForm from '../pets/LostPetForm'
 import RecentLogs from '../pets/RecentLogs'
+import Footer from '../Footer'
 
 export default function HomePage() {
   // Filter state and pet state
@@ -37,7 +38,7 @@ export default function HomePage() {
   return (
     <>
       <h1 className="mb-4 text-2xl font-bold">Welcome to TailTrail</h1>
-
+      
       <div className="home-page flex h-[calc(100vh-100px)]">
         {/* LEFT COLUMN */}
         {/* All components are here */}
@@ -74,6 +75,7 @@ export default function HomePage() {
           <MapComponent filter={filter} />
         </main>
       </div>
+      <Footer />
     </>
   )
 }
