@@ -59,7 +59,7 @@ const testLostMarker = {
   size: 'medium',
   microchipped: true,
   home_suburb: 'island bay',
-  last_location: 'albany',
+  last_location: 'island bay beach',
   last_seen_date: '2025-10-09',
   photo_url: 'https://zaakkuu.github.io/images/20250618_104509.jpg',
   lost: true,

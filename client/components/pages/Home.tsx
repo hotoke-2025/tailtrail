@@ -4,15 +4,8 @@ import LoginButton from '../nav/LoginButton'
 import ListOfPets from '../pets/ListOfPets'
 import type { Pet } from '../../../models/pet'
 import LostFoundButton from './LostFoundButton'
-<<<<<<< HEAD
-import RecentLogs from '../pets/RecentLogs'
-=======
 import LostPetForm from '../pets/LostPetForm'
-<<<<<<< HEAD
->>>>>>> main
-=======
 import RecentLogs from '../pets/RecentLogs'
->>>>>>> main
 
 export default function HomePage() {
   // Filter state and pet state
@@ -20,8 +13,6 @@ export default function HomePage() {
   const [pets, setPets] = useState<Pet[]>([])
   const [isLostPetFormOpen, setLostPetFormOpen] = useState(false)
 
-<<<<<<< HEAD
-=======
   // Fetch pets function, can be called from anywhere
   const fetchPets = async () => {
     const res = await fetch('/api/v1/pets')
@@ -29,7 +20,6 @@ export default function HomePage() {
     setPets(data)
   }
 
->>>>>>> main
   // Get pets from the API when the component appears
   useEffect(() => {
     fetchPets()
@@ -72,14 +62,7 @@ export default function HomePage() {
 
           <div className="mt-6">
             <h3 className="font-semibold">Recent Logs</h3>
-<<<<<<< HEAD
-<<<<<<< HEAD
             <RecentLogs pets={pets} />
-=======
->>>>>>> main
-=======
-            <RecentLogs pets={pets} />
->>>>>>> main
             <ListOfPets pets={filteredPets} />
           </div>
         </aside>
