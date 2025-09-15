@@ -75,7 +75,7 @@ export default function LostPetForm({
     if (formData.file) multiFormData.append('uploaded_file', formData.file)
     else multiFormData.append('photoUrl', formData.photoUrl)
 
-    addMutation.mutate(formData, {
+    addMutation.mutate(multiFormData, {
       onSuccess: () => {
         setFormData(initialState)
         if (onClose) onClose()
