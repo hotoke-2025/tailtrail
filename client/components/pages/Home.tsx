@@ -5,6 +5,7 @@ import ListOfPets from '../pets/ListOfPets'
 import type { Pet } from '../../../models/pet'
 import LostFoundButton from './LostFoundButton'
 import LostPetForm from '../pets/LostPetForm'
+import RecentLogs from '../pets/RecentLogs'
 
 export default function HomePage() {
   // Filter state and pet state
@@ -61,6 +62,7 @@ export default function HomePage() {
 
           <div className="mt-6">
             <h3 className="font-semibold">Recent Logs</h3>
+            <RecentLogs pets={pets} />
             <ListOfPets pets={filteredPets} />
           </div>
         </aside>
