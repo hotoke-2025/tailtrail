@@ -35,3 +35,7 @@ export interface PetData {
   lost: boolean
   registrationNumber: string
 }
+
+export interface PetFileData extends PetData {
+  file: File | undefined
+}

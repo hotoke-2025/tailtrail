@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { PetData } from '../../../models/pet'
+import { PetFileData } from '../../../models/pet'
 import { addPet } from '../../apis/pets'
 
-const initialState = {
+const initialState: PetFileData = {
   species: '',
   breed: '',
   name: '',
@@ -19,6 +19,7 @@ const initialState = {
   photoUrl: '',
   lost: true,
   registrationNumber: '',
+  file: undefined,
 }
 
 type LostPetFormProps = {
@@ -34,9 +35,14 @@ export default function LostPetForm({
 }: LostPetFormProps) {
   const [formData, setFormData] = useState(initialState)
 
-  const handleFileChange(evt: React.ChangeEvent<HTMLInputElement>) {
+  const handleFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (evt.target.files)
-      setFormData({ ...formData, photoUrl: evt.target.files ? URL.createObjectURL(evt.target.files[0]) : '' })
+      setFormData({
+        ...formData,
+        photoUrl: evt.target.files
+          ? URL.createObjectURL(evt.target.files[0])
+          : '',
+      })
   }
 
   const handleChange = (
@@ -50,32 +56,40 @@ export default function LostPetForm({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    
-    const data = new FormData()
 
-    data.append('desexed', String(formData.desexed))
-    
+    const multiFormData = new FormData()
 
-    addMutation.mutate(data, {
+    multiFormData.append('desexed', String(formData.desexed))
+    multiFormData.append('species', formData.species)
+    multiFormData.append('breed', formData.breed)
+    multiFormData.append('name', formData.name)
+    multiFormData.append('sex', formData.sex)
+    multiFormData.append('colour', formData.colour)
+    multiFormData.append('age', String(formData.age))
+    multiFormData.append('size', formData.size)
+    multiFormData.append('microchipped', String(formData.microchipped))
+    multiFormData.append('homeSuburb', formData.homeSuburb)
+    multiFormData.append('lastLocation', formData.lastLocation)
+    multiFormData.append('lastSeenDate', formData.lastSeenDate)
+    multiFormData.append('lost', String(formData.lost))
+    multiFormData.append('registrationNumber', formData.registrationNumber)
+
+    if (formData.file) multiFormData.append('uploaded_file', formData.file)
+    else multiFormData.append('photoUrl', formData.photoUrl)
+
+    addMutation.mutate(formData, {
       onSuccess: () => {
         setFormData(initialState)
         if (onClose) onClose()
         if (onSuccess) onSuccess()
       },
     })
-        if (onSuccess) onSuccess()
-      },
-    })
-  }
-
-  function addLostPet(variables: PetData) {
-    return addPet(variables)
   }
 
   const queryClient = useQueryClient()
 
   const addMutation = useMutation({
-    mutationFn: addLostPet,
+    mutationFn: addPet,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pets'] })
     },
@@ -97,7 +111,11 @@ export default function LostPetForm({
         >
           Close
         </button>
-        <form className="space-y-3" onSubmit={handleSubmit}>
+        <form
+          encType="multipart/form-data"
+          className="space-y-3"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="name">
             <strong>Name: </strong>
           </label>
@@ -259,13 +277,17 @@ export default function LostPetForm({
             id="lastSeenDate"
           />
           <br></br>
+          <input
+            className="mt-4 flex justify-center rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200"
+            onChange={handleFileChange}
+            type="file"
+            // accept="image/*"
+          />
           <div className="mt-4 flex justify-center">
-            <button className="rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200">
-              <strong>Upload photo</strong>
-            </button>
-          </div>
-          <div className="mt-4 flex justify-center">
-            <button className="rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700" data-pending={addMutation.isPending}>
+            <button
+              className="rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700"
+              data-pending={addMutation.isPending}
+            >
               <strong>Submit</strong>
             </button>
           </div>

@@ -46,9 +46,13 @@ router.get('/:id', async (req, res) => {
 })
 
 // POST /api/v1/pets - Add new pet
-router.post('/', async (req, res) => {
+router.post('/', upload.single('uploaded_file'), async (req, res) => {
   try {
-    const newPetData = req.body
+    let newPetData = req.body
+    //    delete newPetData.file
+    if (req.file) {
+      newPetData = { ...newPetData, photoUrl: `/images/${req.file?.filename}` }
+    }
     const newPet = await db.addPet(newPetData)
     res.status(201).json(newPet)
   } catch (err) {
@@ -82,7 +86,7 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
-// PUT /api/v1/pets/:id - Upload an image via Multer
+/* Route could be used in future if we want to edit Pet Profile 
 router.put('/:id', upload.single('uploaded_file'), async (req, res) => {
   let pet
   try {
@@ -104,5 +108,6 @@ router.put('/:id', upload.single('uploaded_file'), async (req, res) => {
     res.status(500).json({ error: 'Failed to upload image' })
   }
 })
+*/
 
 export default router
