@@ -24,7 +24,7 @@ const defaultCentertest = {
 
 const testFoundMarker = {
    id: 1,
-  owner_id: 1,
+  ownerId: 1,
   species: 'dog',
   breed: 'heading dog',
   name: "Malu'i",
@@ -34,17 +34,17 @@ const testFoundMarker = {
   age: 3,
   size: 'medium',
   microchipped: true,
-  home_suburb: 'island bay',
-  last_location: 'island bay beach',
-  last_seen_date: '2025-10-09',
-  photo_url: 'https://zaakkuu.github.io/images/20250609_125929.jpg',
+  homeSuburb: 'island bay',
+  lastLocation: 'island bay beach',
+  lastSeenDate: '2025-10-09',
+  photoUrl: 'https://zaakkuu.github.io/images/20250609_125929.jpg',
   lost: false,
   registration_number: 12345,
 }
 
 const testLostMarker = {
    id: 2,
-  owner_id: 1,
+  ownerId: 1,
   species: 'dog',
   breed: 'heading dog',
   name: "Malu'i",
@@ -54,12 +54,12 @@ const testLostMarker = {
   age: 3,
   size: 'medium',
   microchipped: true,
-  home_suburb: 'island bay',
-  last_location: 'island bay beach',
-  last_seen_date: '2025-10-09',
-  photo_url: 'https://zaakkuu.github.io/images/20250618_104509.jpg',
+  homeSuburb: 'island bay',
+  lastLocation: 'island bay beach',
+  lastSeenDate: '2025-10-09',
+  photoUrl: 'https://zaakkuu.github.io/images/20250618_104509.jpg',
   lost: true,
-  registration_number: 12345,
+  registrationNumber: 12345,
 }
 
 function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
