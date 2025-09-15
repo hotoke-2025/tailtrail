@@ -93,11 +93,11 @@ export default function LostPetForm({
       <div className="relative w-full max-w-xl rounded bg-white p-6 shadow-lg">
         <button
           onClick={onClose}
-          className="absolute right-2 top-2 text-gray-600 hover:text-gray-800"
+          className="absolute right-4 top-4 text-sm text-gray-500 hover:text-gray-800"
         >
           Close
         </button>
-        <form onSubmit={handleSubmit}>
+        <form className="space-y-3" onSubmit={handleSubmit}>
           <label htmlFor="name">
             <strong>Name: </strong>
           </label>
@@ -121,6 +121,7 @@ export default function LostPetForm({
             id="species"
             required
           />
+          <br></br>
           <br></br>
           <label>
             <strong>Sex: </strong>
@@ -218,6 +219,7 @@ export default function LostPetForm({
             placeholder="Approximate age of the animal"
           />
           <br></br>
+          <br></br>
           <label>
             <strong>Size: </strong>
             <select
@@ -257,14 +259,13 @@ export default function LostPetForm({
             id="lastSeenDate"
           />
           <br></br>
-          <input
-            className="mt-4 flex justify-center"
-            onChange={handleFileChange}
-            type="file"
-            accept="image/*"
-          />
-          <div className="mt-4 flex justify-center rounded border border-gray-500 px-4 py-2">
-            <button type="submit" data-pending={addMutation.isPending}>
+          <div className="mt-4 flex justify-center">
+            <button className="rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200">
+              <strong>Upload photo</strong>
+            </button>
+          </div>
+          <div className="mt-4 flex justify-center">
+            <button className="rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700" data-pending={addMutation.isPending}>
               <strong>Submit</strong>
             </button>
           </div>
