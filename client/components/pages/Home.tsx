@@ -38,7 +38,7 @@ export default function HomePage() {
   return (
     <>
       <h1 className="mb-4 text-2xl font-bold">Welcome to TailTrail</h1>
-
+      
       <div className="home-page flex h-[calc(100vh-100px)]">
         {/* LEFT COLUMN */}
         {/* All components are here */}
