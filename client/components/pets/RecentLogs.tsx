@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import RecentPetCard from './RecentPetCard'
+import PetCardPopUp from '../pages/PetCardPopUp'
 import type { Pet } from '../../../models/pet'
 
 interface Props {
@@ -6,6 +8,8 @@ interface Props {
 }
 
 export default function RecentLogs({ pets = [] }: Props) {
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
+
   console.log(
     'Before sort:',
     pets.map((p) => ({ id: p.id, last_seen_date: p.last_seen_date })),
@@ -29,9 +33,19 @@ export default function RecentLogs({ pets = [] }: Props) {
       ) : (
         <div>
           {sortedPets.map((pet) => (
+            <button
+              key={pet.id}
+              className="w-full text-left"
+              onClick={() => setSelectedPet(pet)}
+            >
             <RecentPetCard key={pet.id} pet={pet} />
+            </button>
           ))}
         </div>
+      )}
+      {/* Full details popup modal */}
+      {selectedPet && (
+        <PetCardPopUp pet={selectedPet} onClose={() => setSelectedPet(null)} />
       )}
     </div>
   )

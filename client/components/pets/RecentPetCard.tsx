@@ -6,17 +6,16 @@ interface Props {
 
 export default function RecentPetCard({ pet }: Props) {
   return (
-    <div
-      style={{
-        border: '1px solid #ccc',
-        padding: '1rem',
-        marginBottom: '1rem',
-      }}
-    >
+    <div className="border border-gray-300 p-4 mb-4 hover:bg-gray-50 transition">
       <ul>
         <li>
           <strong>Name:</strong> {pet.name}
         </li>
+        <img
+          src={`/images/${pet.photoUrl}`}
+          alt={pet.name}
+          className="mt-2 h-32 w-auto object-cover rounded"
+        />
         <li>
           <strong>Species:</strong> {pet.species}
         </li>
@@ -27,15 +26,6 @@ export default function RecentPetCard({ pet }: Props) {
           <strong>Sex:</strong> {pet.sex}
         </li>
         <li>
-          <strong>Colour:</strong> {pet.colour}
-        </li>
-        <li>
-          <strong>Age:</strong> {pet.age}
-        </li>
-        <li>
-          <strong>Microchipped:</strong> {pet.microchipped ? 'Yes' : 'No'}
-        </li>
-        <li>
           <strong>Home Suburb:</strong> {pet.homeSuburb}
         </li>
         <li>
@@ -44,9 +34,7 @@ export default function RecentPetCard({ pet }: Props) {
         <li>
           <strong>Last Seen Date:</strong> {pet.lastSeenDate}
         </li>
-        <li>
-          <strong>Photo URL:</strong> {pet.photoUrl}
-        </li>
+       
         <li>
           <strong>Lost:</strong> {pet.lost ? 'Yes' : 'No'}
         </li>
