@@ -38,8 +38,8 @@ export default function HomePage() {
   return (
     <>
       <h1 className="mb-4 text-2xl font-bold">Welcome to TailTrail</h1>
-      
-      <div className="home-page flex h-[calc(100vh-100px)]">
+
+      <div className="home-page flex h-[calc(100vh-100px)] pb-20">
         {/* LEFT COLUMN */}
         {/* All components are here */}
         <aside className="w-[40%] overflow-y-auto border-r p-4">
