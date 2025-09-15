@@ -34,6 +34,11 @@ export default function LostPetForm({
 }: LostPetFormProps) {
   const [formData, setFormData] = useState(initialState)
 
+  const handleFileChange(evt: React.ChangeEvent<HTMLInputElement>) {
+    if (evt.target.files)
+      setFormData({ ...formData, photoUrl: evt.target.files ? URL.createObjectURL(evt.target.files[0]) : '' })
+  }
+
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -243,13 +248,14 @@ export default function LostPetForm({
             id="lastSeenDate"
           />
           <br></br>
-          <div className="mt-4 flex justify-center">
-            <button>
-              <strong>Upload photo</strong>
-            </button>
-          </div>
-          <div className="mt-4 flex justify-center">
-            <button data-pending={addMutation.isPending}>
+          <input
+            className="mt-4 flex justify-center"
+            onChange={handleFileChange}
+            type="file"
+            accept="image/*"
+          />
+          <div className="mt-4 flex justify-center rounded border border-gray-500 px-4 py-2">
+            <button type="submit" data-pending={addMutation.isPending}>
               <strong>Submit</strong>
             </button>
           </div>

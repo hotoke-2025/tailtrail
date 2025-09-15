@@ -1,5 +1,21 @@
 import express from 'express'
 import * as db from '../db/pets'
+import multer from 'multer'
+
+// Multer code starts
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, './public/images')
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`)
+  },
+})
+
+const upload = multer({ storage: storage })
+
+// Multer code ends
 
 const router = express.Router()
 
@@ -63,6 +79,29 @@ router.delete('/:id', async (req, res) => {
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Failed to delete pet' })
+  }
+})
+
+// PUT /api/v1/pets/:id - Upload an image via Multer
+router.put('/:id', upload.single('uploaded_file'), async (req, res) => {
+  let pet
+  try {
+    if (req.file)
+      pet = await db.uploadPet(Number(req.params.id), {
+        ...req.body,
+        imgUrl: `/images/${req.file.filename}`,
+      })
+    else pet = await db.updatePet(Number(req.params.id), req.body)
+
+    if (!pet) res.status(404).json({ error: 'No such pet' })
+    else res.status(200).json(pet)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message)
+    } else {
+      console.error('unknown error while uploading image')
+    }
+    res.status(500).json({ error: 'Failed to upload image' })
   }
 })
 
