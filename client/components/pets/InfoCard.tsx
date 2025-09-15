@@ -7,10 +7,10 @@ interface Props {
   lost?: boolean
 }
 
-export default function InfoCard(pet, { pet }: Props) {
+export default function InfoCard({ pet }: Props) {
   const lostColor = pet.lost ? '#f87171' : '#4ade80'
   return (
-    <div style={{ border: lostColor, padding: '1rem', marginBottom: '1rem' }}>
+    <div style={{ border: `2px solid ${lostColor}`, padding: '1rem', marginBottom: '1rem', backgroundColor: `${lostColor}20` }} >
       <ul style={{ textAlign: 'center' }} >
         <li><strong style={{ textAlign: 'left' }} >Name:</strong> {pet.name}</li>
         <li><strong>Species:</strong> {pet.species}</li>

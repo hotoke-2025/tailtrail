@@ -48,7 +48,7 @@ export default function PetMarker({ pet, position }: PetMarkerProps) {
       roundRect(ctx, borderWidth, borderWidth, size - borderWidth * 2, size - borderWidth * 2, cornerRadius - 2)
       ctx.fill()
       
-      // Image rounded corners clip snip
+      // Image rounded corners
       roundRect(ctx, borderWidth + 2, borderWidth + 2, imageSize, imageSize, cornerRadius - 3)
       ctx.clip()
       
@@ -60,13 +60,15 @@ export default function PetMarker({ pet, position }: PetMarkerProps) {
     }
     
     img.onerror = () => {
-      // error for image
+      // error for image that just makes a blank icon with the lost color
       ctx.clearRect(0, 0, size, size)
       ctx.fillStyle = lostColor
       setIconUrl(canvas.toDataURL('image/png', 1.0))
     }
   }
 
+  //Copied from MDN (GOAT FOR CANVAS RENDERING I LEARNT IT IN LIKE AN HOUR)
+  //https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/roundRect
   const roundRect = (ctx: CanvasRenderingContext2D, x: number, y: number, width: number, height: number, radius: number) => {
     ctx.beginPath()
     ctx.moveTo(x + radius, y)
