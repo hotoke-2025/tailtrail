@@ -6,6 +6,7 @@ import type { Pet } from '../../../models/pet'
 import LostFoundButton from './LostFoundButton'
 import LostPetForm from '../pets/LostPetForm'
 import RecentLogs from '../pets/RecentLogs'
+import Footer from '../Footer'
 
 export default function HomePage() {
   // Filter state and pet state
@@ -74,6 +75,7 @@ export default function HomePage() {
           <MapComponent filter={filter} />
         </main>
       </div>
+      <Footer />
     </>
   )
 }
