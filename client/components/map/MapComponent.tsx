@@ -1,7 +1,6 @@
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
 import LoadingPawprint from '../LoadingPaw.tsx'
 import PetMarker from './PetPin.tsx'
-import PetCard from './PetCard'
 import type { Pet } from '../../../models/pet.ts'
 import { usePets } from '../../hooks/usePets.ts'
 
@@ -21,50 +20,50 @@ const defaultCenter = {
 }
 
 //REMOVE LATER AFTER LOST AND FOUND TESTING
-const defaultCentertest = {
-  lat: -36.898461,
-  lng: 174.813336,
-}
+// const defaultCentertest = {
+//   lat: -36.898461,
+//   lng: 174.813336,
+// }
 
-const testFoundMarker = {
-  id: 1,
-  ownerId: 1,
-  species: 'dog',
-  breed: 'heading dog',
-  name: "Malu'i",
-  sex: 'male',
-  desexed: true,
-  colour: 'black and white',
-  age: 3,
-  size: 'medium',
-  microchipped: true,
-  homeSuburb: 'island bay',
-  lastLocation: 'island bay beach',
-  lastSeenDate: '2025-10-09',
-  photoUrl: 'https://zaakkuu.github.io/images/20250609_125929.jpg',
-  lost: false,
-  registration_number: 12345,
-}
+// const testFoundMarker = {
+//   id: 1,
+//   ownerId: 1,
+//   species: 'dog',
+//   breed: 'heading dog',
+//   name: "Malu'i",
+//   sex: 'male',
+//   desexed: true,
+//   colour: 'black and white',
+//   age: 3,
+//   size: 'medium',
+//   microchipped: true,
+//   homeSuburb: 'island bay',
+//   lastLocation: 'island bay beach',
+//   lastSeenDate: '2025-10-09',
+//   photoUrl: 'https://zaakkuu.github.io/images/20250609_125929.jpg',
+//   lost: false,
+//   registration_number: 12345,
+// }
 
-const testLostMarker = {
-  id: 2,
-  ownerId: 1,
-  species: 'dog',
-  breed: 'heading dog',
-  name: "Malu'i",
-  sex: 'male',
-  desexed: true,
-  colour: 'black and white',
-  age: 3,
-  size: 'medium',
-  microchipped: true,
-  homeSuburb: 'island bay',
-  lastLocation: 'island bay beach',
-  lastSeenDate: '2025-10-09',
-  photoUrl: 'https://zaakkuu.github.io/images/20250618_104509.jpg',
-  lost: true,
-  registrationNumber: 12345,
-}
+// const testLostMarker = {
+//   id: 2,
+//   ownerId: 1,
+//   species: 'dog',
+//   breed: 'heading dog',
+//   name: "Malu'i",
+//   sex: 'male',
+//   desexed: true,
+//   colour: 'black and white',
+//   age: 3,
+//   size: 'medium',
+//   microchipped: true,
+//   homeSuburb: 'island bay',
+//   lastLocation: 'island bay beach',
+//   lastSeenDate: '2025-10-09',
+//   photoUrl: 'https://zaakkuu.github.io/images/20250618_104509.jpg',
+//   lost: true,
+//   registrationNumber: 12345,
+// }
 
 // // Test Filters for hard-coded data
 // function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
@@ -84,32 +83,36 @@ const testLostMarker = {
 //   return markers
 // }
 
-// Filters for dynamic data
-function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
-  const markers = []
-  if (filter === 'all' || filter === 'found') {
-    markers.push({
-      pet: testFoundMarker,
-      position: defaultCenter,
-    })
-  }
-  if (filter === 'all' || filter === 'lost') {
-    markers.push({
-      pet: testLostMarker,
-      position: defaultCenter,
-    })
-  }
-  return markers
-}
-
 export default function MapComponent({ filter }: MapComponentProps) {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
+  const { pets, loading, error } = usePets()
 
   if (!apiKey) {
     return <div>Error no api key found</div>
   }
+  if (loading) return <LoadingPawprint />
+  if (error) return <div>Error loading pets: {error}</div>
+  if (!pets || pets.length === 0) return <div>No pets to display</div>
 
   const filteredMarkers = getFilteredMarkers(filter)
+
+  // Filters for dynamic data
+  function getFilteredMarkers(filter: 'all' | 'lost' | 'found') {
+    const markers = []
+    if (filter === 'all' || filter === 'found') {
+      markers.push({
+        pet: testFoundMarker,
+        position: defaultCenter,
+      })
+    }
+    if (filter === 'all' || filter === 'lost') {
+      markers.push({
+        pet: testLostMarker,
+        position: defaultCenter,
+      })
+    }
+    return markers
+  }
 
   return (
     <LoadScript googleMapsApiKey={apiKey} loadingElement={<LoadingPawprint />}>
