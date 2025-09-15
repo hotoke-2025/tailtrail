@@ -70,7 +70,7 @@ export default function HomePage() {
 
         {/* RIGHT COLUMN */}
         {/* Map as a main component */}
-        <main className="relative w-[60%] p-4">
+        <main className="relative w-[60%] p-4 h-full">
           <LostFoundButton filter={filter} setFilter={setFilter} />
           <MapComponent filter={filter} />
         </main>
