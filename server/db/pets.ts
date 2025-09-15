@@ -30,6 +30,7 @@ export async function addPet(data: Pet) {
     last_seen_date: data.lastSeenDate,
     photo_url: data.photoUrl,
     registration_number: data.registrationNumber,
+    lost: data.lost,
   })
   // { last_seen_date: data.lastSeenDate }
   const newPet = await getPetById(id)
