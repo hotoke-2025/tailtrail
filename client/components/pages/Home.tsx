@@ -49,9 +49,9 @@ export default function HomePage() {
           </div>
 
           <div>
-            <h2 className="mb-2 text-xl font-bold">Pet Profile</h2>
+            <h2 className="text-lg font-semibold text-slate-800 mb-4">Pet Profile</h2>
             {/* Add profile image, form, etc. here */}
-            <p>Profile info</p>
+            {/* <p>Profile info</p> */}
             <button onClick={() => setLostPetFormOpen(true)}>
               Report a lost animal
             </button>
