@@ -22,17 +22,17 @@ const initialState: PetFileData = {
   file: undefined,
 }
 
-type LostPetFormProps = {
+type LostPetPosterProps = {
   isOpen: boolean
   onClose?: () => void
   onSuccess?: () => void
 }
 
-export default function LostPetForm({
+export default function LostPetPoster({
   isOpen,
   onClose,
   onSuccess,
-}: LostPetFormProps) {
+}: LostPetPosterProps) {
   const [formData, setFormData] = useState(initialState)
 
   const handleFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -109,54 +109,16 @@ export default function LostPetForm({
           className="space-y-3"
           onSubmit={handleSubmit}
         >
-          <p>
-            Please input as much information as you can about your missing pet.
-          </p>
-          <label htmlFor="name">
-            <strong>Name: </strong>
-          </label>
+          <p>Please upload a photo or copy of the poster below.</p>
           <input
-            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.name}
-            onChange={handleChange}
-            type="text"
-            id="name"
+            className="mt-4 flex justify-center rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200"
+            onChange={handleFileChange}
+            type="file"
             required
-          />{' '}
-          <span className="text-red-500">*</span>
-          <br></br>
-          <label htmlFor="species">
-            <strong>Species: </strong>
-          </label>
-          <input
-            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.species}
-            onChange={handleChange}
-            type="text"
-            id="species"
-            required
-          />{' '}
-          <span className="text-red-500">*</span>
-          <br></br>
-          <label>
-            <strong>Sex: </strong>
-            <select
-              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={formData.sex}
-              onChange={handleChange}
-              id="sex"
-              required
-            >
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </label>{' '}
-          <span className="text-red-500">*</span>
-          <br></br>
-          <label htmlFor="home suburb">
+          />
+          <label htmlFor="poster location">
             {' '}
-            <strong>Home Suburb: </strong>
+            <strong>Poster location: </strong>
           </label>
           <input
             className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -167,6 +129,43 @@ export default function LostPetForm({
             required
           />{' '}
           <span className="text-red-500">*</span>
+          <br></br>
+          <p>Please input below any information you can from the poster.</p>
+          <label htmlFor="name">
+            <strong>Name: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.name}
+            onChange={handleChange}
+            type="text"
+            id="name"
+          />{' '}
+          <br></br>
+          <label htmlFor="species">
+            <strong>Species: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.species}
+            onChange={handleChange}
+            type="text"
+            id="species"
+          />{' '}
+          <br></br>
+          <label>
+            <strong>Sex: </strong>
+            <select
+              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.sex}
+              onChange={handleChange}
+              id="sex"
+            >
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </label>{' '}
           <br></br>
           <label htmlFor="registration number">
             <strong>Council Registration Number: </strong>
@@ -277,12 +276,6 @@ export default function LostPetForm({
             id="lastSeenDate"
           />
           <br></br>
-          <p>Please upload a photo of your pet below.</p>
-          <input
-            className="mt-4 flex justify-center rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200"
-            onChange={handleFileChange}
-            type="file"
-          />
           <div className="mt-4 flex justify-center">
             <button
               className="rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700"
