@@ -40,8 +40,8 @@ export default function HomePage() {
 
   return (
     <>
-    <Header/>
-    
+      <Header />
+
       <div className="home-page flex h-[calc(100vh-100px)] pb-20">
         {/* LEFT COLUMN */}
         {/* All components are here */}
@@ -60,7 +60,7 @@ export default function HomePage() {
               className="rounded bg-blue-600 px-4 py-2 font-bold text-white shadow transition hover:bg-blue-700"
               onClick={() => setLostPetPosterOpen(true)}
             >
-              Upload a lost pet poster
+              Update a pet profile
             </button>
             <LostPetPoster
               isOpen={isLostPetPosterOpen}
