@@ -112,11 +112,8 @@ export default function MapComponent({ filter }: MapComponentProps) {
         {/* {filteredMarkers.map(({ pet, position }) => (
           <Marker key={pet.id} position={position} title={pet.name} />
         ))} */}
-        {/* Example marker */}
-        {/* <PetMarker pet={testFoundMarker} position={defaultCenter} />
-        <PetMarker pet={testLostMarker} position={defaultCentertest} /> */}
 
-        {/* Using the custome Marker */}
+        {/* Using the custom Marker */}
         {filteredMarkers.map(({ pet, position }) => (
           <PetMarker key={pet.id} pet={pet} position={position} />
         ))}
