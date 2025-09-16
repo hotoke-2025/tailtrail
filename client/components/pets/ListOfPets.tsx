@@ -5,8 +5,8 @@ import type { Pet } from '../../../models/pet'
 
 interface Props {
   pets: Pet[] // declare prop
-  isLoading: boolean
-  error: string
+  isLoading?: boolean
+  error?: string
 }
 
 export default function ListOfPets({ pets, isLoading, error }: Props) {

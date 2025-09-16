@@ -40,11 +40,11 @@ export default function HomePage() {
     <>
     <Header/>
     
-      <div className="home-page flex h-[calc(100vh-100px)] pb-20">
+      <div className="flex h-screen">
         {/* LEFT COLUMN */}
         {/* All components are here */}
-        <aside className="w-[40%] overflow-y-auto border-r p-4">
-          <div>
+        <aside className="w-[40%] overflow-y-auto border-r p-4 bg-white">
+          <div className="flex justify-end">
             <LoginButton />
           </div>
 
@@ -63,7 +63,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-6">
-            <h3 className="font-semibold">Recent Logs</h3>
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">Recently Reported Pets</h3>
             <RecentLogs pets={pets} />
             <ListOfPets pets={filteredPets} />
           </div>
