@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { PetFileData } from '../../../models/pet'
 import { addPet } from '../../apis/pets'
+import { getCoordsFromAddress } from '../map/coordinateTool'
 
 const initialState: PetFileData = {
   species: '',
@@ -19,6 +20,8 @@ const initialState: PetFileData = {
   photoUrl: '',
   lost: true,
   registrationNumber: '',
+  latitude: '',
+  longitude: '',
   file: undefined,
 }
 

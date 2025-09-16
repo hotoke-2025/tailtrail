@@ -45,6 +45,8 @@ export async function addPet(data: Pet) {
     photo_url: data.photoUrl,
     registration_number: data.registrationNumber,
     lost: data.lost,
+    latitude: data.latitude,
+    longitude: data.longitude,
   })
   const newPet = await getPetById(id)
   return newPet
