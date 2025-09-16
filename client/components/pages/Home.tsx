@@ -7,6 +7,7 @@ import LostFoundButton from './LostFoundButton'
 import LostPetForm from '../pets/LostPetForm'
 import RecentLogs from '../pets/RecentLogs'
 import Footer from '../Footer'
+import Header from '../Header'
 import LostPetPoster from '../pets/LostPetPoster'
 
 export default function HomePage() {
@@ -39,8 +40,8 @@ export default function HomePage() {
 
   return (
     <>
-      <h1 className="mb-4 text-2xl font-bold">Welcome to Tail Trail</h1>
-
+    <Header/>
+    
       <div className="home-page flex h-[calc(100vh-100px)] pb-20">
         {/* LEFT COLUMN */}
         {/* All components are here */}
