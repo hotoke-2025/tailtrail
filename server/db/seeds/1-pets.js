@@ -19,7 +19,8 @@ export async function seed(knex) {
       home_suburb: 'island bay',
       last_location: 'island bay beach',
       last_seen_date: '2025-10-09',
-      photo_url: '1000012489.jpg',
+      photo_url:
+        'https://media.discordapp.net/attachments/1415079599964160110/1417313596333097021/mouse.jpeg?ex=68ca07a5&is=68c8b625&hm=fb80f38ec706d9ad8d38456f382f2659ac091490ad86c3c8a5b4cafdfe2bf268&=&format=webp&width=1379&height=1470',
       lost: true,
       registration_number: 12345,
       latitude: '-36.848461',
@@ -40,7 +41,8 @@ export async function seed(knex) {
       home_suburb: 'kingsland',
       last_location: 'home I hope',
       last_seen_date: '2025-11-09',
-      photo_url: 'mochicat.jpg',
+      photo_url:
+        'https://media.discordapp.net/attachments/1415079599964160110/1417313596333097021/mouse.jpeg?ex=68ca07a5&is=68c8b625&hm=fb80f38ec706d9ad8d38456f382f2659ac091490ad86c3c8a5b4cafdfe2bf268&=&format=webp&width=1379&height=1470',
       lost: true,
       registration_number: 54321,
       latitude: '-36.848461',
@@ -57,7 +59,8 @@ export async function seed(knex) {
       home_suburb: 'milford',
       last_location: 'milford beach',
       last_seen_date: '2025-08-15',
-      photo_url: 'photoofadog.jpg',
+      photo_url:
+        'https://media.discordapp.net/attachments/1415079599964160110/1417313596333097021/mouse.jpeg?ex=68ca07a5&is=68c8b625&hm=fb80f38ec706d9ad8d38456f382f2659ac091490ad86c3c8a5b4cafdfe2bf268&=&format=webp&width=1379&height=1470',
       lost: true,
       registration_number: 98765,
       latitude: '-32.84845',
@@ -74,7 +77,8 @@ export async function seed(knex) {
       home_suburb: 'milford',
       last_location: 'milford beach',
       last_seen_date: '2025-01-09',
-      photo_url: 'charlie.jpg',
+      photo_url:
+        'https://media.discordapp.net/attachments/1415079599964160110/1417313596333097021/mouse.jpeg?ex=68ca07a5&is=68c8b625&hm=fb80f38ec706d9ad8d38456f382f2659ac091490ad86c3c8a5b4cafdfe2bf268&=&format=webp&width=1379&height=1470',
       lost: false,
       registration_number: 45612,
       latitude: '-36.84845',
