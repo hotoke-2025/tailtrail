@@ -35,7 +35,7 @@ export default function RecentLogs({ pets = [] }: Props) {
           {sortedPets.map((pet) => (
             <button
               key={pet.id}
-              className="w-full text-left"
+              className="w-full text-left "
               onClick={() => setSelectedPet(pet)}
             >
             <RecentPetCard key={pet.id} pet={pet} />

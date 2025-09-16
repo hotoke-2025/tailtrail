@@ -6,7 +6,7 @@ interface Props {
 
 export default function RecentPetCard({ pet }: Props) {
   return (
-    <div className="mb-4 rounded-2xl bg-white px-6 py-5 shadow-sm transition hover:bg-gray-50">
+    <div className="mb-4 rounded-2xl bg-gray-200 px-6 py-5 shadow-sm transition hover:bg-gray-300">
       {/* Flex row: image on left, name + badge (lost of found) on right */}
       <div className="mb-4 flex items-center gap-4">
         {/* Pet image - circle avatar */}
