@@ -15,7 +15,9 @@ export interface Pet {
   lastSeenDate: string
   photoUrl: string
   lost: boolean
-  registrationNumber: string
+  registrationNumber: number
+  latitude: string
+  longitude: string
 }
 
 export interface PetData {
@@ -33,7 +35,9 @@ export interface PetData {
   lastSeenDate: string
   photoUrl: string
   lost: boolean
-  registrationNumber: string
+  registrationNumber: number
+  latitude: string
+  longitude: string
 }
 
 export interface PetFileData extends PetData {

@@ -38,7 +38,6 @@ function LoginButton() {
           </Button>
         </div>
       </IfNotAuthenticated>
-      <h1>Pets</h1>
     </>
   )
 }
