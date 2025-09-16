@@ -111,7 +111,7 @@ export default function PetMarker({ pet, position }: PetMarkerProps) {
       }
     : undefined
 
-  // if (!customIcon) return null
+  if (!customIcon) return null
 
   return (
     <Marker
