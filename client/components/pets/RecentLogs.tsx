@@ -31,7 +31,7 @@ export default function RecentLogs({ pets = [] }: Props) {
       {sortedPets.length === 0 ? (
         <p className="italic text-gray-500">No recent logs.</p>
       ) : (
-        <div>
+        <div className="space-y-4">
           {sortedPets.map((pet) => (
             <button
               key={pet.id}

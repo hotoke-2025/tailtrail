@@ -44,10 +44,7 @@ export default function HomePage() {
         {/* LEFT COLUMN */}
         {/* All components are here */}
         <aside className="w-[40%] overflow-y-auto border-r p-4 bg-white">
-          <div className="flex justify-end">
-            <LoginButton />
-          </div>
-
+          
           <div>
             <h2 className="text-lg font-semibold text-slate-800 mb-4">Pet Profile</h2>
             {/* Add profile image, form, etc. here */}
