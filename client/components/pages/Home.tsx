@@ -28,13 +28,13 @@ export default function HomePage() {
   }, [])
 
   // Apply filtering logic
-  const filteredPets = pets.filter((pet) => {
-    const lostValue = String(pet.lost).toLowerCase()
+  // const filteredPets = pets.filter((pet) => {
+  //   const lostValue = String(pet.lost).toLowerCase()
 
-    if (filter === 'lost') return lostValue === 'true'
-    if (filter === 'found') return lostValue === 'false'
-    return true
-  })
+  //   if (filter === 'lost') return lostValue === 'true'
+  //   if (filter === 'found') return lostValue === 'false'
+  //   return true
+  // })
 
   return (
     <>
@@ -65,7 +65,7 @@ export default function HomePage() {
               Recently Reported Pets
             </h3>
             <RecentLogs pets={pets} />
-            <ListOfPets pets={filteredPets} />
+            <ListOfPets pets={pets} />
           </div>
         </aside>
 
