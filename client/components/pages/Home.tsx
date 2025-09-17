@@ -8,6 +8,7 @@ import LostPetForm from '../pets/LostPetForm'
 import RecentLogs from '../pets/RecentLogs'
 import Footer from '../Footer'
 import Header from '../Header'
+import PetsPage from './PetsPage'
 
 export default function HomePage() {
   // Filter state and pet state
@@ -50,13 +51,14 @@ export default function HomePage() {
             />
           </div>
 
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <h3 className="mb-4 text-lg font-semibold text-slate-800">
               Recently Reported Pets
             </h3>
             <RecentLogs pets={pets} />
             <ListOfPets pets={pets} />
-          </div>
+          </div> */}
+          <PetsPage pets={pets} />
         </aside>
 
         {/* RIGHT COLUMN */}
