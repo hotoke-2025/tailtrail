@@ -13,17 +13,16 @@ export default function Header() {
           </div> */}
 
           {/* Title */}
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-1">
             <img
               src="../../public/images/tailtrail-logo.webp"
+              alt="TailTrail Logo"
               width="150"
             ></img>
             {/* <h1 className="text-3xl font-bold tracking-tight">Tail Trail</h1> */}
             <p className="text-base">Reuniting lost pets with their packs</p>
           </div>
         </div>
-        {/* Navigation
-        <Nav /> */}
 
         <div className="flex justify-end">
           <LoginButton />
