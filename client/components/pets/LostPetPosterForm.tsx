@@ -4,7 +4,6 @@ import { PetFileData } from '../../../models/pet'
 import { addPet } from '../../apis/pets'
 import { Autocomplete, useJsApiLoader } from '@react-google-maps/api'
 import { useRef } from 'react'
-import { LoadScript } from '@react-google-maps/api'
 
 const initialState: PetFileData = {
   species: '',
@@ -27,17 +26,17 @@ const initialState: PetFileData = {
   file: undefined,
 }
 
-type LostPetFormProps = {
+type LostPetPosterFormProps = {
   isOpen: boolean
   onClose?: () => void
   onSuccess?: () => void
 }
 
-export default function LostPetForm({
+export default function LostPetPosterForm({
   isOpen,
   onClose,
   onSuccess,
-}: LostPetFormProps) {
+}: LostPetPosterFormProps) {
   const [formData, setFormData] = useState(initialState)
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
@@ -153,54 +152,19 @@ export default function LostPetForm({
           className="space-y-3"
           onSubmit={handleSubmit}
         >
-          <p>Please enter as many details about your lost pet as possible.</p>
-          <label htmlFor="name">
-            <strong>Name: </strong>
-          </label>
+          <p>Please upload a photo or copy of the poster below.</p>
           <input
-            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.name}
-            onChange={handleChange}
-            type="text"
-            id="name"
+            className="mt-4 flex justify-center rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200"
+            onChange={handleFileChange}
+            type="file"
             required
           />
-          <span className="text-red-500"> *</span>
           <br></br>
-          <label htmlFor="species">
-            <strong>Species: </strong>
-          </label>
-          <input
-            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.species}
-            onChange={handleChange}
-            type="text"
-            id="species"
-            required
-          />{' '}
-          <span className="text-red-500"> *</span>
-          <br></br>
-          <br></br>
-          <label>
-            <strong>Sex: </strong>
-            <select
-              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={formData.sex}
-              onChange={handleChange}
-              id="sex"
-              required
-            >
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
+          <p>Please provide as many details as possible.</p>
+          <label htmlFor="lastLocation">
+            <strong>Last Known Location (or location of poster): </strong>
           </label>{' '}
           <span className="text-red-500"> *</span>
-          <br></br>
-          <label htmlFor="lastLocation">
-            <strong>Last Known Location: </strong>
-            <span className="text-red-500"> *</span>
-          </label>
           <Autocomplete
             onLoad={(autocomplete) => {
               autocompleteRef.current =
@@ -218,6 +182,43 @@ export default function LostPetForm({
               required
             />
           </Autocomplete>
+          <br></br>
+          <label htmlFor="name">
+            <strong>Name: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.name}
+            onChange={handleChange}
+            type="text"
+            id="name"
+          />
+          <br></br>
+          <label htmlFor="species">
+            <strong>Species: </strong>
+          </label>
+          <input
+            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={formData.species}
+            onChange={handleChange}
+            type="text"
+            id="species"
+          />
+          <br></br>
+          <br></br>
+          <label>
+            <strong>Sex: </strong>
+            <select
+              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.sex}
+              onChange={handleChange}
+              id="sex"
+            >
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </label>
           <br></br>
           <label htmlFor="home suburb">
             <strong>Home Suburb: </strong>
@@ -328,13 +329,7 @@ export default function LostPetForm({
             id="lastSeenDate"
           />
           <br></br>
-          <input
-            className="mt-4 flex justify-center rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200"
-            onChange={handleFileChange}
-            type="file"
-            required
-            // accept="image/*"
-          />
+          <br></br>
           <div className="mt-4 flex justify-center">
             <button
               className="rounded-md bg-green-600 px-5 py-2 text-sm font-semibold text-white hover:bg-green-700"

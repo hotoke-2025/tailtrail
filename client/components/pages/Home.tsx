@@ -8,12 +8,14 @@ import LostPetForm from '../pets/LostPetForm'
 import RecentLogs from '../pets/RecentLogs'
 import Footer from '../Footer'
 import Header from '../Header'
+import LostPetPosterForm from '../pets/LostPetPosterForm'
 
 export default function HomePage() {
   // Filter state and pet state
   const [filter, setFilter] = useState<'all' | 'lost' | 'found'>('all')
   const [pets, setPets] = useState<Pet[]>([])
   const [isLostPetFormOpen, setLostPetFormOpen] = useState(false)
+  const [isLostPetPosterFormOpen, setLostPetPosterFormOpen] = useState(false)
 
   // Fetch pets function, can be called from anywhere
   const fetchPets = async () => {
@@ -50,16 +52,31 @@ export default function HomePage() {
             </h2>
             {/* Add profile image, form, etc. here */}
             {/* <p>Profile info</p> */}
-            <button onClick={() => setLostPetFormOpen(true)}>
-              Report a lost animal
-            </button>
-            <LostPetForm
-              isOpen={isLostPetFormOpen}
-              onClose={() => setLostPetFormOpen(false)}
-              onSuccess={fetchPets}
-            />
+            <div className="flex gap-2">
+              <button
+                onClick={() => setLostPetPosterFormOpen(true)}
+                className="rounded-md bg-blue-600 px-4 py-2 font-bold text-white shadow-md hover:bg-blue-700"
+              >
+                Upload a lost pet poster
+              </button>
+              <LostPetPosterForm
+                isOpen={isLostPetPosterFormOpen}
+                onClose={() => setLostPetPosterFormOpen(false)}
+                onSuccess={fetchPets}
+              />
+              <button
+                onClick={() => setLostPetFormOpen(true)}
+                className="rounded-md bg-blue-600 px-4 py-2 font-bold text-white shadow-md hover:bg-blue-700"
+              >
+                Report my pet as lost
+              </button>
+              <LostPetForm
+                isOpen={isLostPetFormOpen}
+                onClose={() => setLostPetFormOpen(false)}
+                onSuccess={fetchPets}
+              />
+            </div>
           </div>
-
           <div className="mt-6">
             <h3 className="mb-4 text-lg font-semibold text-slate-800">
               Recently Reported Pets
