@@ -1,7 +1,20 @@
 import request from 'superagent'
 import type { Pet } from '../../models/pet'
+import { useAccessToken } from '../components/nav/Authenticated'
 
 const rootURL = new URL(`/api/v1`, document.baseURI)
+
+const authenticatedRequest = async (method: string, endpoint: string, data?: any) => {
+  const token = await useAccessToken()
+  let req = request(method, `${rootURL}${endpoint}`)
+    .set('Authorization', `Bearer ${token}`)
+  
+  if (data) {
+    req = req.send(data)
+  }
+  
+  return req
+}
 
 // GET (Fetch all pets)
 export async function getPets(): Promise<Pet[]> {
@@ -16,8 +29,8 @@ export async function getPetById(id: number): Promise<Pet> {
 }
 
 // POST (Add new pet)
-export async function addPet(data: FormData): Promise<Pet> {
-  const response = await request.post(`${rootURL}/pets`).send(data)
+export async function addPet(petData: FormData): Promise<Pet> {
+  const response = await authenticatedRequest('POST', '/pets', petData)
   return response.body as Pet
 }
 

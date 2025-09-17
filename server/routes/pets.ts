@@ -1,6 +1,7 @@
 import express from 'express'
 import * as db from '../db/pets'
 import multer from 'multer'
+import checkJwt, {JwtRequest} from '../auth0'
 
 // Multer code starts
 
@@ -19,7 +20,7 @@ const upload = multer({ storage: storage })
 
 const router = express.Router()
 
-// GET /api/pets - return all pets
+// GET /api/pets - return all pets *public route*
 router.get('/', async (req, res) => {
   try {
     const pets = await db.getAllPets()
@@ -30,7 +31,7 @@ router.get('/', async (req, res) => {
   }
 })
 
-// GET /api/pets/:id - return one pet by id
+// GET /api/pets/:id - return one pet by id *public route*
 router.get('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id)
@@ -45,11 +46,17 @@ router.get('/:id', async (req, res) => {
   }
 })
 
-// POST /api/v1/pets - Add new pet
-router.post('/', upload.single('uploaded_file'), async (req, res) => {
+// POST /api/v1/pets - Add new pet *private route*
+router.post('/', checkJwt, upload.single('uploaded_file'), async (req: JwtRequest, res) => {
   try {
+    if (!req.auth?.sub) {
+      return res.status(401).json({ error: 'Unauthorized' })
+    }
+
     let newPetData = req.body
     //    delete newPetData.file
+    newPetData = { ...newPetData, owner_id: req.auth.sub }
+
     if (req.file) {
       newPetData = { ...newPetData, photoUrl: `/images/${req.file?.filename}` }
     }
@@ -62,10 +69,22 @@ router.post('/', upload.single('uploaded_file'), async (req, res) => {
 })
 
 // PATCH /api/v1/pets/:id - Update a pet
-router.patch('/:id', async (req, res) => {
+router.patch('/:id',checkJwt, async (req: JwtRequest, res) => {
   try {
+    if (!req.auth?.sub) {
+      return res.status(401).json({ error: 'auth urself up' })
+    }
     const id = Number(req.params.id)
     const updatedData = req.body
+    const pet = await db.getPetById(id)
+    if (!pet) {
+      return res.status(404).json({ error: 'Pet not found' })
+    }
+    
+     if (pet.ownerId !== Number(req.auth.sub)) {
+      return res.status(403).json({ error: 'Nope!: You can only update your own pets' })
+    }
+
     await db.updatePetById(id, updatedData)
     res.sendStatus(204)
   } catch (err) {
@@ -75,9 +94,20 @@ router.patch('/:id', async (req, res) => {
 })
 
 // DELETE /api/v1/pets/:id - Delete a pet
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', checkJwt, async (req: JwtRequest, res) => {
   try {
+    if (!req.auth?.sub) {
+      return res.status(401).json({ error: 'NOT AUTHGED!' })
+    }
     const id = Number(req.params.id)
+    const pet = await db.getPetById(id)
+    if (!pet) {
+      return res.status(404).json({ error: 'Pet not found' })
+    }
+    if (pet.ownerId !== Number(req.auth.sub)) {
+      return res.status(403).json({ error: 'Nope!~: You can only delete your own pets' })
+    }
+    
     await db.deletePetById(id)
     res.sendStatus(204)
   } catch (err) {
@@ -85,6 +115,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete pet' })
   }
 })
+
 
 /* Route could be used in future if we want to edit Pet Profile 
 router.put('/:id', upload.single('uploaded_file'), async (req, res) => {
