@@ -17,6 +17,7 @@ const defaultCenter = {
   lng: 174.763336,
 }
 
+// test data
 // const defaultCentertest = {
 //   lat: -36.898461,
 //   lng: 174.813336,
@@ -113,7 +114,7 @@ export default function MapComponent({ filter }: MapComponentProps) {
           <Marker key={pet.id} position={position} title={pet.name} />
         ))} */}
 
-        {/* Using the custom Marker */}
+        {/* Using custom PetMarker */}
         {filteredMarkers.map(({ pet, position }) => (
           <PetMarker key={pet.id} pet={pet} position={position} />
         ))}
