@@ -37,9 +37,6 @@ export default function HomePage() {
         {/* All components are here */}
         <aside className="w-[40%] overflow-y-auto border-r bg-white p-4">
           <div>
-            <h2 className="mb-4 text-lg font-semibold text-slate-800">
-              Pet Profile
-            </h2>
             {/* Add profile image, form, etc. here */}
             <button onClick={() => setLostPetFormOpen(true)}>
               Report a lost animal
