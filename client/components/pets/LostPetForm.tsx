@@ -193,6 +193,27 @@ export default function LostPetForm({
             </select>
           </label>
           <br></br>
+          <label htmlFor="lastLocation">
+            <strong>Last Known Location: </strong>
+          </label>
+          <Autocomplete
+            onLoad={(autocomplete) => {
+              autocompleteRef.current =
+                autocomplete as google.maps.places.Autocomplete
+            }}
+            onPlaceChanged={handlePlaceChange}
+          >
+            <input
+              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+              // value={formData.lastLocation}
+              // onChange={handleChange}
+              type="text"
+              id="lastLocation"
+              placeholder="Enter last known location"
+              required
+            />
+          </Autocomplete>
+          <br></br>
           <label htmlFor="home suburb">
             <strong>Home Suburb: </strong>
           </label>
@@ -202,7 +223,6 @@ export default function LostPetForm({
             onChange={handleChange}
             type="text"
             id="homeSuburb"
-            required
           />
           <br></br>
           <label htmlFor="registration number">
@@ -292,26 +312,7 @@ export default function LostPetForm({
             </select>
           </label>
           <br></br>
-          <label htmlFor="lastLocation">
-            <strong>Last Known Location: </strong>
-          </label>
-          <Autocomplete
-            onLoad={(autocomplete) => {
-              autocompleteRef.current =
-                autocomplete as google.maps.places.Autocomplete
-            }}
-            onPlaceChanged={handlePlaceChange}
-          >
-            <input
-              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-              // value={formData.lastLocation}
-              // onChange={handleChange}
-              type="text"
-              id="lastLocation"
-              placeholder="Enter last known location"
-            />
-          </Autocomplete>
-          <br></br>
+
           <label htmlFor="last seen date">
             <strong>Date Last Seen: </strong>
           </label>
@@ -327,6 +328,7 @@ export default function LostPetForm({
             className="mt-4 flex justify-center rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200"
             onChange={handleFileChange}
             type="file"
+            required
             // accept="image/*"
           />
           <div className="mt-4 flex justify-center">

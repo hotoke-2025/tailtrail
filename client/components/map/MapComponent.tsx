@@ -70,15 +70,7 @@ const defaultCenter = {
 
 export default function MapComponent({ filter }: MapComponentProps) {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-  // const { pets, loading, error } = usePets()
-
-  // const { isLoaded, loadError } = useJsApiLoader({
-  //   googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-  //   libraries: ['places'],
-  // })
-
   const { data: pets, isLoading: loading, error } = usePets()
-
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: apiKey,
     libraries: ['places'],
