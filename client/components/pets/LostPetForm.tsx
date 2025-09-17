@@ -131,6 +131,11 @@ export default function LostPetForm({
 
   if (!isOpen) return null
 
+  // not sure what to do for the "photoURL" segment of the form
+  // multer library. PetPals. docs file README for multer
+  // how are "id" and "owner id" handled here?
+  // do any owner details go here? For the database
+
   if (loadError) return <div>Error loading maps</div>
   if (!isLoaded) return <div>Loading...</div>
 
@@ -148,9 +153,6 @@ export default function LostPetForm({
           className="space-y-3"
           onSubmit={handleSubmit}
         >
-          <p>
-            Please input as much information as you can about your missing pet.
-          </p>
           <label htmlFor="name">
             <strong>Name: </strong>
           </label>
@@ -161,8 +163,7 @@ export default function LostPetForm({
             type="text"
             id="name"
             required
-          />{' '}
-          <span className="text-red-500">*</span>
+          />
           <br></br>
           <label htmlFor="species">
             <strong>Species: </strong>
@@ -174,8 +175,8 @@ export default function LostPetForm({
             type="text"
             id="species"
             required
-          />{' '}
-          <span className="text-red-500">*</span>
+          />
+          <br></br>
           <br></br>
           <label>
             <strong>Sex: </strong>
@@ -190,8 +191,7 @@ export default function LostPetForm({
               <option value="Male">Male</option>
               <option value="Female">Female</option>
             </select>
-          </label>{' '}
-          <span className="text-red-500">*</span>
+          </label>
           <br></br>
           <label htmlFor="lastLocation">
             <strong>Last Known Location: </strong>
@@ -215,7 +215,6 @@ export default function LostPetForm({
           </Autocomplete>
           <br></br>
           <label htmlFor="home suburb">
-            {' '}
             <strong>Home Suburb: </strong>
           </label>
           <input
@@ -325,11 +324,12 @@ export default function LostPetForm({
             id="lastSeenDate"
           />
           <br></br>
-          <p>Please upload a photo of your pet below.</p>
           <input
             className="mt-4 flex justify-center rounded-md bg-indigo-100 px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-200"
             onChange={handleFileChange}
             type="file"
+            required
+            // accept="image/*"
           />
           <div className="mt-4 flex justify-center">
             <button
