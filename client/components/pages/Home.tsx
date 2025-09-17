@@ -29,16 +29,7 @@ export default function HomePage() {
     fetchPets()
   }, [])
 
-  // Apply filtering logic
-  // const filteredPets = pets.filter((pet) => {
-  //   const lostValue = String(pet.lost).toLowerCase()
-
-  //   if (filter === 'lost') return lostValue === 'true'
-  //   if (filter === 'found') return lostValue === 'false'
-  //   return true
-  // })
-
-  return (
+   return (
     <>
       <Header />
 

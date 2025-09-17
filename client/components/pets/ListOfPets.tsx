@@ -32,18 +32,22 @@ export default function ListOfPets({ pets, isLoading, error }: Props) {
     
     <div className="mb-8">
       {/* Toggle button */}
-      <button
-        onClick={() => setShowList(!showList)}
-        className="text-sm font-semibold mb-4 bg-[#dad6d6] px-2 py-2 rounded hover:bg-[#c4c2c2] transition"
-      >
-        {showList ? 'Hide Lost and Found Pets ▲' : 'Show Lost and Found Pets ▼'}
-      </button>
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={() => setShowList(!showList)}
+          className="text-sm font-medium mb-4 rounded-full border border-gray-300 bg-white px-4 py-2 shadow-sm hover:bg-sky-100 hover:border-gray-400 transition mt-4"
+        >
+          {showList ? 'Hide List of All Pets ▲' : 'Show List of All Pets ▼'}
+        </button>
+      </div>
 
     {/* Handle loading and error states */}
       {showList && (
         <div>
+          <h2 className="mb-4 text-lg font-semibold text-slate-800">List of All Lost and Found Pets:</h2>
           {/* SEARCH BAR GOES HERE */}
           <div className="mb-4 flex gap-2">
+            
             <div className="relative flex-grow">
           <input
             type="text"
@@ -65,6 +69,7 @@ export default function ListOfPets({ pets, isLoading, error }: Props) {
               ×
             </button>
           )}
+          
           </div>
             
             <button
@@ -75,7 +80,7 @@ export default function ListOfPets({ pets, isLoading, error }: Props) {
             </button>
           </div>
           
-          <h2 className="text-xl font-bold mb-2">List of All Lost and Found Pets:</h2>
+          
 
           {isLoading ? (
             <p className="text-gray-500 italic">Loading...</p>
