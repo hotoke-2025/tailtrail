@@ -1,5 +1,7 @@
 // import nav from 'nav'
 
+import LoginButton from "./nav/LoginButton";
+
 export default function Header() {
   return (
     <header className="header bg-gradient-to-r from-sky-400 to-blue-500 text-white shadow-lg p-2">
@@ -19,6 +21,10 @@ export default function Header() {
         </div>
         {/* Navigation
         <Nav /> */}
+        
+        <div className="flex justify-end">
+          <LoginButton />
+        </div>
       </div>
     </header>
   )
