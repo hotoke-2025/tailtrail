@@ -16,6 +16,9 @@ export default function RecentPetCard({ pet }: Props) {
   return (
     
   <div className="rounded-xl bg-blue-50 px-6 py-12 shadow-sm transition hover:scale-[1.01] hover:bg-blue-200 ">
+    <h3 className="mb-4 text-lg font-semibold text-slate-800">
+  Recently Reported Pets
+</h3>
     <div className="flex items-center gap-6">
       {/* Avatar */}
       <div className="w-32 aspect-square overflow-hidden rounded-full border border-gray-300 shadow flex-shrink-0">

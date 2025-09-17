@@ -11,7 +11,6 @@ interface Props {
 
 export default function ListOfPets({ pets, isLoading, error }: Props) {
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null)
-  const [showList, setShowList] = useState(false)
   const [search, setSearch] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -31,18 +30,6 @@ export default function ListOfPets({ pets, isLoading, error }: Props) {
   return (
     
     <div className="mb-8">
-      {/* Toggle button */}
-      <div className="flex justify-center mb-4">
-        <button
-          onClick={() => setShowList(!showList)}
-          className="text-sm font-medium mb-4 rounded-full border border-gray-300 bg-white px-4 py-2 shadow-sm hover:bg-sky-100 hover:border-gray-400 transition mt-4"
-        >
-          {showList ? 'Hide List of All Pets ▲' : 'Show List of All Pets ▼'}
-        </button>
-      </div>
-
-    {/* Handle loading and error states */}
-      {showList && (
         <div>
           <h2 className="mb-4 text-lg font-semibold text-slate-800">List of All Lost and Found Pets:</h2>
           {/* SEARCH BAR GOES HERE */}
@@ -102,7 +89,7 @@ export default function ListOfPets({ pets, isLoading, error }: Props) {
             </div>
           )}
         </div>
-      )}
+      
 
     {/* Render modal when pet is selected */}
       {selectedPet && (

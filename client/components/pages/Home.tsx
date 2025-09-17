@@ -8,6 +8,7 @@ import LostPetForm from '../pets/LostPetForm'
 import RecentLogs from '../pets/RecentLogs'
 import Footer from '../Footer'
 import Header from '../Header'
+import PetsPage from './PetsPage'
 import LostPetPosterForm from '../pets/LostPetPosterForm'
 
 export default function HomePage() {
@@ -38,9 +39,6 @@ export default function HomePage() {
         {/* All components are here */}
         <aside className="w-[40%] overflow-y-auto border-r bg-white p-4">
           <div>
-            <h2 className="mb-4 text-lg font-semibold text-slate-800">
-              Pet Profile
-            </h2>
             {/* Add profile image, form, etc. here */}
             {/* <p>Profile info</p> */}
             <div className="flex gap-2">
@@ -68,13 +66,14 @@ export default function HomePage() {
               />
             </div>
           </div>
-          <div className="mt-6">
+          {/* <div className="mt-6">
             <h3 className="mb-4 text-lg font-semibold text-slate-800">
               Recently Reported Pets
             </h3>
             <RecentLogs pets={pets} />
             <ListOfPets pets={pets} />
-          </div>
+          </div> */}
+          <PetsPage pets={pets} />
         </aside>
 
         {/* RIGHT COLUMN */}
