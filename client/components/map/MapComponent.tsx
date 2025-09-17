@@ -1,4 +1,9 @@
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api'
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  useJsApiLoader,
+} from '@react-google-maps/api'
 import LoadingPawprint from '../LoadingPaw.tsx'
 import type { Pet } from '../../../models/pet.ts'
 import { usePets } from '../../hooks/usePets.ts'
@@ -17,6 +22,7 @@ const defaultCenter = {
   lng: 174.763336,
 }
 
+// test data
 // const defaultCentertest = {
 //   lat: -36.898461,
 //   lng: 174.813336,
@@ -64,12 +70,18 @@ const defaultCenter = {
 
 export default function MapComponent({ filter }: MapComponentProps) {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-  const { pets, loading, error } = usePets()
+  const { data: pets, isLoading: loading, error } = usePets()
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: apiKey,
+    libraries: ['places'],
+  })
 
   if (!apiKey) return <div>Error: no API key found</div>
   if (loading) return <LoadingPawprint />
   if (error) return <div>Error loading pets: {error}</div>
   if (!pets || pets.length === 0) return <div>No pets to display</div>
+  if (loadError) return <div>Error loading maps</div>
+  if (!isLoaded) return <LoadingPawprint />
 
   // Filter pets dynamically
   const filteredMarkers = pets
@@ -95,29 +107,27 @@ export default function MapComponent({ filter }: MapComponentProps) {
   // console.log(filteredMarkers)
 
   return (
-    <LoadScript googleMapsApiKey={apiKey} loadingElement={<LoadingPawprint />}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={defaultCenter}
-        zoom={12}
-        options={{
-          mapId: '34123ba350ed27c7d0c481d4',
-          disableDefaultUI: true,
-          zoomControl: true,
-          streetViewControl: false,
-          mapTypeControl: false,
-        }}
-      >
-        {/* Using the built-in Marker for testing */}
-        {/* {filteredMarkers.map(({ pet, position }) => (
+    <GoogleMap
+      mapContainerStyle={containerStyle}
+      center={defaultCenter}
+      zoom={12}
+      options={{
+        mapId: '34123ba350ed27c7d0c481d4',
+        disableDefaultUI: true,
+        zoomControl: true,
+        streetViewControl: false,
+        mapTypeControl: false,
+      }}
+    >
+      {/* Using the built-in Marker for testing */}
+      {/* {filteredMarkers.map(({ pet, position }) => (
           <Marker key={pet.id} position={position} title={pet.name} />
         ))} */}
 
-        {/* Using the custom Marker */}
-        {filteredMarkers.map(({ pet, position }) => (
-          <PetMarker key={pet.id} pet={pet} position={position} />
-        ))}
-      </GoogleMap>
-    </LoadScript>
+      {/* Using custom PetMarker */}
+      {filteredMarkers.map(({ pet, position }) => (
+        <PetMarker key={pet.id} pet={pet} position={position} />
+      ))}
+    </GoogleMap>
   )
 }
