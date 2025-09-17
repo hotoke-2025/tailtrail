@@ -40,19 +40,19 @@ export default function HomePage() {
 
   return (
     <>
-      <Header />
-
-      <div className="home-page flex h-[calc(100vh-100px)] pb-20">
+    <Header/>
+    
+      <div className="flex h-screen">
         {/* LEFT COLUMN */}
         {/* All components are here */}
-        <aside className="w-[40%] overflow-y-auto border-r p-4">
-          <div>
+        <aside className="w-[40%] overflow-y-auto border-r p-4 bg-white">
+          <div className="flex justify-end">
             <LoginButton />
           </div>
           <div>
-            <h2 className="mb-2 text-xl font-bold">Pet Profile</h2>
+            <h2 className="text-lg font-semibold text-slate-800 mb-4">Pet Profile</h2>
             {/* Add profile image, form, etc. here */}
-            <p>Profile info</p>
+            {/* <p>Profile info</p> */}
             {/* Example button, add content or remove if not needed */}
           </div>
           <div className="flex space-x-4">
@@ -91,7 +91,7 @@ export default function HomePage() {
             />
           </div>
           <div className="mt-6">
-            <h3 className="font-semibold">Recent Logs</h3>
+            <h3 className="text-lg font-semibold text-slate-800 mb-4">Recently Reported Pets</h3>
             <RecentLogs pets={pets} />
             <ListOfPets pets={filteredPets} />
           </div>

@@ -20,7 +20,7 @@ export default function PetCardPopUp({ pet, onClose }: PetCardPopUpProps) {
           <img
             src={pet.photoUrl}
             alt={pet.name}
-            className="h-40 w-40 rounded-md border border-gray-300 object-cover shadow-sm" // ⬅ square with rounded corners
+            className="h-52 w-52 rounded-md border border-gray-300 object-cover shadow-sm"
           />
 
           <div className="flex items-center gap-2">
