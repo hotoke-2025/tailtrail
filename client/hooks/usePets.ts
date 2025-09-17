@@ -7,6 +7,8 @@ export function usePets() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
+  // replace with useQuery
+  // set key to be pets
   useEffect(() => {
     async function fetchPets() {
       try {
