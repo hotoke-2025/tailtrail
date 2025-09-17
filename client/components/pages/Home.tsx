@@ -8,14 +8,12 @@ import LostPetForm from '../pets/LostPetForm'
 import RecentLogs from '../pets/RecentLogs'
 import Footer from '../Footer'
 import Header from '../Header'
-import LostPetPoster from '../pets/LostPetPoster'
 
 export default function HomePage() {
   // Filter state and pet state
   const [filter, setFilter] = useState<'all' | 'lost' | 'found'>('all')
   const [pets, setPets] = useState<Pet[]>([])
   const [isLostPetFormOpen, setLostPetFormOpen] = useState(false)
-  const [isLostPetPosterOpen, setLostPetPosterOpen] = useState(false)
 
   // Fetch pets function, can be called from anywhere
   const fetchPets = async () => {
@@ -44,6 +42,7 @@ export default function HomePage() {
 
       <div className="flex h-screen">
         {/* LEFT COLUMN */}
+        {/* All components are here */}
         <aside className="w-[40%] overflow-y-auto border-r bg-white p-4">
           <div>
             <h2 className="mb-4 text-lg font-semibold text-slate-800">
@@ -51,36 +50,8 @@ export default function HomePage() {
             </h2>
             {/* Add profile image, form, etc. here */}
             {/* <p>Profile info</p> */}
-            {/* Example button, add content or remove if not needed */}
-          </div>
-          <div className="flex space-x-4">
-            <button
-              className="rounded bg-blue-600 px-4 py-2 font-bold text-white shadow transition hover:bg-blue-700"
-              onClick={() => setLostPetPosterOpen(true)}
-            >
-              Update a pet profile
-            </button>
-            <LostPetPoster
-              isOpen={isLostPetPosterOpen}
-              onClose={() => setLostPetPosterOpen(false)}
-              onSuccess={fetchPets}
-            />
-            <button
-              className="rounded bg-blue-600 px-4 py-2 font-bold text-white shadow transition hover:bg-blue-700"
-              onClick={() => setLostPetPosterOpen(true)}
-            >
-              Upload a lost pet poster
-            </button>
-            <LostPetPoster
-              isOpen={isLostPetPosterOpen}
-              onClose={() => setLostPetPosterOpen(false)}
-              onSuccess={fetchPets}
-            />
-            <button
-              className="rounded bg-blue-600 px-4 py-2 font-bold text-white shadow transition hover:bg-blue-700"
-              onClick={() => setLostPetFormOpen(true)}
-            >
-              Report my pet as lost
+            <button onClick={() => setLostPetFormOpen(true)}>
+              Report a lost animal
             </button>
             <LostPetForm
               isOpen={isLostPetFormOpen}
@@ -88,6 +59,7 @@ export default function HomePage() {
               onSuccess={fetchPets}
             />
           </div>
+
           <div className="mt-6">
             <h3 className="mb-4 text-lg font-semibold text-slate-800">
               Recently Reported Pets
