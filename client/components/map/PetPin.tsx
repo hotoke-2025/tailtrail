@@ -75,9 +75,15 @@ export default function PetMarker({ pet, position }: PetMarkerProps) {
 
     img.onerror = () => {
       // error for image that just makes a blank icon with the lost color
-      ctx.clearRect(0, 0, size, size)
-      ctx.fillStyle = lostColor
-      setIconUrl(canvas.toDataURL('image/png', 1.0))
+      const placeholderUrl = './replacewithlog.jpg'
+
+      const img2 = new Image()
+      img2.src = placeholderUrl
+      img2.onload = () => {
+        ctx.clearRect(0, 0, size, size)
+        ctx.drawImage(img2, 0, 0, size, size)
+        setIconUrl(canvas.toDataURL('image/png', 1.0))
+      }
     }
   }
 

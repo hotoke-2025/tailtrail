@@ -2,6 +2,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { PetFileData } from '../../../models/pet'
 import { addPet } from '../../apis/pets'
+import { Autocomplete, useJsApiLoader } from '@react-google-maps/api'
+import { useRef } from 'react'
+import { LoadScript } from '@react-google-maps/api'
 
 const initialState: PetFileData = {
   species: '',
@@ -19,6 +22,8 @@ const initialState: PetFileData = {
   photoUrl: '',
   lost: true,
   registrationNumber: '',
+  latitude: '',
+  longitude: '',
   file: undefined,
 }
 
@@ -34,6 +39,32 @@ export default function LostPetForm({
   onSuccess,
 }: LostPetFormProps) {
   const [formData, setFormData] = useState(initialState)
+  const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+    libraries: ['places'],
+  })
+
+  const handlePlaceChange = () => {
+    if (!autocompleteRef.current) return
+    const place = autocompleteRef.current.getPlace()
+    const address = place?.formatted_address ?? ''
+    const lat = place?.geometry?.location?.lat
+      ? place.geometry.location.lat().toString()
+      : ''
+    const lng = place?.geometry?.location?.lng
+      ? place.geometry.location.lng().toString()
+      : ''
+    if (address && lat && lng) {
+      setFormData((prev: PetFileData) => ({
+        ...prev,
+        lastLocation: address,
+        latitude: lat,
+        longitude: lng,
+      }))
+    }
+  }
 
   const handleFileChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     if (evt.target.files)
@@ -52,7 +83,7 @@ export default function LostPetForm({
     setFormData(newLostPet)
   }
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const multiFormData = new FormData()
@@ -70,7 +101,12 @@ export default function LostPetForm({
     multiFormData.append('lastLocation', formData.lastLocation)
     multiFormData.append('lastSeenDate', formData.lastSeenDate)
     multiFormData.append('lost', String(formData.lost))
-    multiFormData.append('registrationNumber', formData.registrationNumber)
+    multiFormData.append(
+      'registrationNumber',
+      String(formData.registrationNumber),
+    )
+    multiFormData.append('latitude', formData.latitude)
+    multiFormData.append('longitude', formData.longitude)
 
     if (formData.file) multiFormData.append('uploaded_file', formData.file)
     else multiFormData.append('photoUrl', formData.photoUrl)
@@ -94,6 +130,9 @@ export default function LostPetForm({
   })
 
   if (!isOpen) return null
+
+  if (loadError) return <div>Error loading maps</div>
+  if (!isLoaded) return <div>Loading...</div>
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -154,6 +193,27 @@ export default function LostPetForm({
           </label>{' '}
           <span className="text-red-500">*</span>
           <br></br>
+          <label htmlFor="lastLocation">
+            <strong>Last Known Location: </strong>
+          </label>
+          <Autocomplete
+            onLoad={(autocomplete) => {
+              autocompleteRef.current =
+                autocomplete as google.maps.places.Autocomplete
+            }}
+            onPlaceChanged={handlePlaceChange}
+          >
+            <input
+              className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
+              // value={formData.lastLocation}
+              // onChange={handleChange}
+              type="text"
+              id="lastLocation"
+              placeholder="Enter last known location"
+              required
+            />
+          </Autocomplete>
+          <br></br>
           <label htmlFor="home suburb">
             {' '}
             <strong>Home Suburb: </strong>
@@ -164,9 +224,7 @@ export default function LostPetForm({
             onChange={handleChange}
             type="text"
             id="homeSuburb"
-            required
-          />{' '}
-          <span className="text-red-500">*</span>
+          />
           <br></br>
           <label htmlFor="registration number">
             <strong>Council Registration Number: </strong>
@@ -255,17 +313,7 @@ export default function LostPetForm({
             </select>
           </label>
           <br></br>
-          <label htmlFor="last location">
-            <strong>Last Known Location: </strong>
-          </label>
-          <input
-            className="rounded border border-gray-400 text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.lastLocation}
-            onChange={handleChange}
-            type="text"
-            id="lastLocation"
-          />
-          <br></br>
+
           <label htmlFor="last seen date">
             <strong>Date Last Seen: </strong>
           </label>
