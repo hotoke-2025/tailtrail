@@ -5,6 +5,7 @@ import { addPet } from '../../apis/pets'
 import { Autocomplete, useJsApiLoader } from '@react-google-maps/api'
 import { useRef } from 'react'
 import { LoadScript } from '@react-google-maps/api'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const initialState: PetFileData = {
   species: '',
@@ -38,6 +39,7 @@ export default function LostPetForm({
   onClose,
   onSuccess,
 }: LostPetFormProps) {
+  const { getAccessTokenSilently } = useAuth0()
   const [formData, setFormData] = useState(initialState)
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null)
 
@@ -85,7 +87,8 @@ export default function LostPetForm({
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
+try {
+      const token = await getAccessTokenSilently()
     const multiFormData = new FormData()
 
     multiFormData.append('desexed', String(formData.desexed))
@@ -111,23 +114,33 @@ export default function LostPetForm({
     if (formData.file) multiFormData.append('uploaded_file', formData.file)
     else multiFormData.append('photoUrl', formData.photoUrl)
 
-    addMutation.mutate(multiFormData, {
-      onSuccess: () => {
-        setFormData(initialState)
-        if (onClose) onClose()
-        if (onSuccess) onSuccess()
-      },
-    })
+      addMutation.mutate({formData: multiFormData, token}, {
+        onSuccess: () => {
+          setFormData(initialState)
+          if (onClose) onClose()
+          if (onSuccess) onSuccess()
+        },
+      })
+    }catch (error) {
+      console.error('Error submitting form:', error)
   }
+}
 
   const queryClient = useQueryClient()
 
   const addMutation = useMutation({
-    mutationFn: addPet,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['pets'] })
-    },
-  })
+  mutationFn: async ({ formData, token }: { formData: FormData, token: string }) => {
+    console.log('Mutation executing with token:', token)
+    return addPet(formData, token)
+  },
+  onError: (error) => {
+    console.error('Mutation error:', error)
+  },
+  onSuccess: () => {
+    console.log('Mutation succeeded')
+    queryClient.invalidateQueries({ queryKey: ['pets'] })
+  },
+})
 
   if (!isOpen) return null
 

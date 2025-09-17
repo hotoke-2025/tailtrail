@@ -13,6 +13,8 @@ export default function CustomAuth0Provider({ children }: Auth0ProviderProps) {
   const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID
   const audience = import.meta.env.VITE_AUTH0_AUDIENCE
 
+console.log('Auth0 Config:', { domain, clientId, audience })
+
   if (!domain || !clientId || !audience) {
     return <div>AUTH0 ERROR NO USER DETECTED</div>
   }
@@ -24,11 +26,13 @@ export default function CustomAuth0Provider({ children }: Auth0ProviderProps) {
       authorizationParams={{
       redirect_uri: window.location.origin,
       audience: audience,
+      scope: 'openid profile email',
       }}
       onRedirectCallback={(appState) => {
         navigate(appState?.returnTo || window.location.pathname)
       }}
       cacheLocation="localstorage"
+      useRefreshTokens={true}
     >
       {children}
     </Auth0Provider>

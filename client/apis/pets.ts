@@ -1,6 +1,7 @@
 import request from 'superagent'
 import type { Pet } from '../../models/pet'
 import { useAccessToken } from '../components/nav/Authenticated'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const rootURL = new URL(`/api/v1`, document.baseURI)
 
@@ -29,14 +30,49 @@ export async function getPetById(id: number): Promise<Pet> {
 }
 
 // POST (Add new pet)
-export async function addPet(petData: FormData): Promise<Pet> {
-  const response = await authenticatedRequest('POST', '/pets', petData)
-  return response.body as Pet
+export async function addPet(petData: FormData, token: string): Promise<Pet> {
+  
+  try {
+    console.log('Making request with token:', token)
+    const response = await fetch(`${rootURL}/pets`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: petData,
+    })
+    
+    if (!response.ok) {
+       const errorText = await response.text()
+      console.error('Server error:', errorText)
+      throw new Error('Failed to add pet')
+    }
+    
+    return response.json()
+  } catch (error) {
+    console.error('Error adding pet:', error)
+    throw error
+  }
 }
 
+
 // PATCH (Update a pet)
-export async function updatePet(id: number, data: Pet) {
-  await request.patch(`${rootURL}/pets/${id}`).send(data)
+export async function updatePet(id: number, data: Pet, token: string) {
+  console.log('Making request with token:', token)
+  const response = await fetch(`${rootURL}/pets/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: petData,
+  })
+  
+  if (!response.ok) {
+    const errorText = await response.text()
+    console.error('Server error:', errorText)
+    throw new Error('Failed to update pet')
+  }
 }
 
 // DELETE (Delete a pet)
