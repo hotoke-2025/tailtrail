@@ -140,7 +140,7 @@ export default function LostPetPosterForm({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative w-full max-w-xl rounded bg-white p-6 shadow-lg">
+      <div className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto rounded bg-white p-6 shadow-lg">
         <button
           onClick={onClose}
           className="absolute right-4 top-4 text-sm text-gray-500 hover:text-gray-800"

@@ -52,7 +52,7 @@ export default function RecentPetCard({ pet }: Props) {
           </span>
           <span>
             <span className="font-bold">Sex:</span>{' '}
-            {pet.sex === 'male' ? '♂️ Male' : '♀️ Female'}
+            {pet.sex?.toLowerCase() === 'male' ? '♂️ Male' : '♀️ Female'}
           </span>
         </div>
 
