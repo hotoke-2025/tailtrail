@@ -6,7 +6,7 @@ interface Props {
 
 export default function PetCard({ pet }: Props) {
   return (
-    <div className="mb-4 rounded-2xl bg-white px-6 py-5 shadow-sm transition hover:bg-gray-50">
+    <div className="mb-4 rounded-2xl bg-gray-200 px-6 py-5 shadow-sm transition hover:bg-gray-300">
       {/* 🆕 Flex row: image on left, name + badge (lost/found) on right */}
       <div className="mb-4 flex items-center gap-4">
         {/* 🆕 Pet image as square with rounded corners */}
@@ -32,6 +32,8 @@ export default function PetCard({ pet }: Props) {
         </div>
       </div>
 
+      <hr />
+
       <ul className="space-y-2 text-sm font-medium text-gray-700">
         <li>
           <strong>Species:</strong> {pet.species}
@@ -51,9 +53,7 @@ export default function PetCard({ pet }: Props) {
         <li>
           <strong>Last Seen Date:</strong> {pet.lastSeenDate}
         </li>
-        <li>
-          <strong>Lost:</strong> {pet.lost ? 'Yes' : 'No'}
-        </li>
+        
       </ul>
     </div>
   )

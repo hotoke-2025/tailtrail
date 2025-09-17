@@ -27,13 +27,13 @@ function LoginButton() {
               className="h-8 w-8 rounded-full"
             />
           )}
-          {user && <p>{user?.nickname}</p>}
-          <Button onClick={handleSignOut}>Sign out</Button>
+          {user && <p >{user?.nickname}</p>}
+          <Button onClick={handleSignOut} className="bg-orange-500 hover:bg-orange-600 text-white text-sm px-4 py-1.5 rounded-md shadow transition duration-200" >Sign out</Button>
         </div>
       </IfAuthenticated>
       <IfNotAuthenticated>
         <div className="flex items-center space-x-3">
-          <Button size="sm" className="px-0" onClick={handleSignIn}>
+          <Button className="bg-green-500 hover:bg-green-600 text-white text-sm px-4 py-1.5 rounded-md shadow transition duration-200" onClick={handleSignIn}>
             Sign in
           </Button>
         </div>
