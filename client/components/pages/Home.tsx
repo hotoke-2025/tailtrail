@@ -28,28 +28,26 @@ export default function HomePage() {
   }, [])
 
   // Apply filtering logic
-  const filteredPets = pets.filter((pet) => {
-    const lostValue = String(pet.lost).toLowerCase()
+  // const filteredPets = pets.filter((pet) => {
+  //   const lostValue = String(pet.lost).toLowerCase()
 
-    if (filter === 'lost') return lostValue === 'true'
-    if (filter === 'found') return lostValue === 'false'
-    return true
-  })
+  //   if (filter === 'lost') return lostValue === 'true'
+  //   if (filter === 'found') return lostValue === 'false'
+  //   return true
+  // })
 
   return (
     <>
-    <Header/>
-    
+      <Header />
+
       <div className="flex h-screen">
         {/* LEFT COLUMN */}
         {/* All components are here */}
-        <aside className="w-[40%] overflow-y-auto border-r p-4 bg-white">
-          <div className="flex justify-end">
-            <LoginButton />
-          </div>
-
+        <aside className="w-[40%] overflow-y-auto border-r bg-white p-4">
           <div>
-            <h2 className="text-lg font-semibold text-slate-800 mb-4">Pet Profile</h2>
+            <h2 className="mb-4 text-lg font-semibold text-slate-800">
+              Pet Profile
+            </h2>
             {/* Add profile image, form, etc. here */}
             {/* <p>Profile info</p> */}
             <button onClick={() => setLostPetFormOpen(true)}>
@@ -63,9 +61,11 @@ export default function HomePage() {
           </div>
 
           <div className="mt-6">
-            <h3 className="text-lg font-semibold text-slate-800 mb-4">Recently Reported Pets</h3>
+            <h3 className="mb-4 text-lg font-semibold text-slate-800">
+              Recently Reported Pets
+            </h3>
             <RecentLogs pets={pets} />
-            <ListOfPets pets={filteredPets} />
+            <ListOfPets pets={pets} />
           </div>
         </aside>
 
